@@ -1,3 +1,29 @@
+table {
+  width: 100%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.mat-mdc-form-field {
+  margin-top: 5px;
+  font-size: 14px;
+  width: 100%;
+}
+
 .example-spacer {
-    flex: 1 1 auto;
-  }
+  flex: 1 1 auto;
+}
+
+.demo-inline-calendar-card {
+  width: 300px;
+}
+
+.example-input-wrapper {
+  margin-bottom: 16px;
+}
+
+label {
+  margin-right: 4px;
+}

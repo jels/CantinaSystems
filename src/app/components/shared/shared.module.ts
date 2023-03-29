@@ -20,6 +20,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import { MatStepperModule } from '@angular/material/stepper';
+
 
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -55,7 +57,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
-    MatListModule
+    MatListModule,
+    MatStepperModule
   ],
   exports:[
     MatFormFieldModule,
@@ -79,7 +82,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
-    MatListModule
+    MatListModule,
+    MatStepperModule
   ]
 })
 export class SharedModule { }

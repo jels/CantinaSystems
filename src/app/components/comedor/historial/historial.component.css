@@ -1,19 +1,18 @@
 table {
-    width: 100%;
-    margin-top: 10px;
-  }
-  
-  .pointer{
-    cursor: pointer;
-  }
-  
-  .mat-mdc-form-field {
-    margin-top: 5px;
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .example-spacer {
-    flex: 1 1 auto;
-  }
-  
+  width: 100%;
+  margin-top: 10px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.mat-mdc-form-field {
+  margin-top: 5px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
