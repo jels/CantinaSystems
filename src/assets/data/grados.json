@@ -1,0 +1,22 @@
+[
+    {
+        "idGrado": "Inicio",
+        "nombreGrado": "/dashboard"
+    },
+    {
+        "idGrado": "Usuarios",
+        "nombreGrado": "/dashboard/usuarios"
+    },
+    {
+        "idGrado": "Horarios",
+        "nombreGrado": "/dashboard/horarios"
+    },
+    {
+        "idGrado": "Pagos",
+        "nombreGrado": "/dashboard/pagos"
+    },
+    {
+        "idGrado": "Reportes",
+        "nombreGrado": "/dashboard/reportes"
+    }
+]

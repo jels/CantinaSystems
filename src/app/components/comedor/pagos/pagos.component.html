@@ -1,0 +1,62 @@
+<div class="container">
+    <mat-toolbar>
+        <span>Pagos</span>
+        <span class="example-spacer"></span>
+        <span>Deuda Actual= </span>
+        <span style="color: red; padding-left: 10px;">150.000 Gs</span>
+        <span style="padding-left: 25px;"></span>
+        <button mat-raised-button color="primary">Realizar un Pago</button>
+    </mat-toolbar>
+
+    <div class="mat-elevation-z8" *ngIf="listPagos.length > 0">
+
+        <mat-form-field>
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Escriba dos o mas letras" #input
+                autocomplete="off">
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="anho">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
+                <td mat-cell *matCellDef="let element"> {{element.anho}} </td>
+            </ng-container>
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="mes">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mes </th>
+                <td mat-cell *matCellDef="let element"> {{element.mes}} </td>
+            </ng-container>
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="dia">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Dia </th>
+                <td mat-cell *matCellDef="let element"> {{element.dia}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="monto">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Monto </th>
+                <td mat-cell *matCellDef="let element"> {{element.monto}} <span style="font-weight: bold;">Gs</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="foto">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
+                <td mat-cell *matCellDef="let element"> <img src="{{element.foto}}" style="width: 25px;"></td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar cantidad"></mat-paginator>
+
+    </div>
+    <div class="mat-elevation-z8" *ngIf="listPagos.length == 0" style="text-align: center;">
+        <h2>No hay Historial que mostrar</h2>
+    </div>
+    <!-- Modal -->
+
+</div>

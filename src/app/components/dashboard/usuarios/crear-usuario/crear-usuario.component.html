@@ -1,0 +1,79 @@
+<div class="container">
+    <mat-toolbar>
+        <span>Crear Usuario</span>
+    </mat-toolbar>
+    <mat-card style="margin-top: 10px;">
+        <!--  [formGroup]="form" (ngSubmit)="agregarUsuario()"  -->
+        <form [formGroup]="form" (ngSubmit)="agregarUsuario()">
+            <mat-grid-list cols="5" rowHeight="75px">
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Nombres</mat-label>
+                        <input matInput autocomplete="off" formControlName="user_nombre" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="3" [rowspan]="8">
+                    <img src="./assets/img/login.png" width="250" height="250">
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Apellidos</mat-label>
+                        <input matInput autocomplete="off" formControlName="user_apellido" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Nombre de Usuario</mat-label>
+                        <input matInput autocomplete="off" formControlName="user_name" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Contraseña de Usuario</mat-label>
+                        <input matInput autocomplete="off" formControlName="user_pass" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Rol de usuario</mat-label>
+                        <mat-select formControlName="user_rol" required>
+                            <mat-option *ngFor="let rol of roles" [value]="rol.nombreRol">{{rol.nombreRol}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Seleccionar Entidad</mat-label>
+                        <mat-select formControlName="idEntidad" required>
+                            <mat-option *ngFor="let entidad of entidades"
+                                [value]="entidad.idEntidad">{{entidad.acronimoEntidad}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Seleccionar Nivel</mat-label>
+                        <mat-select formControlName="idNivel" required>
+                            <mat-option *ngFor="let nivel of niveles"
+                                [value]="nivel.idNivel">{{nivel.acronimoNivel}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Seccion del nivel</mat-label>
+                        <mat-select formControlName="seccion_user">
+                            <mat-option *ngFor="let seccion of secciones"
+                                [value]="seccion.nombreSeccion">{{seccion.nombreSeccion}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary"
+                        style="margin-right: 10px;">Aceptar</button>
+                    <button routerLink="/dashboard/usuarios" mat-raised-button color="warn">Cancelar</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </mat-card>
+</div>

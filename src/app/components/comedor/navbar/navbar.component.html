@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+    <span>Comedor</span>
+
+    <span class="example-spacer"></span>
+
+    <button mat-button *ngFor="let item of navbar" [routerLink]="item.redirect">{{item.nombre}}</button>
+
+    <span class="example-spacer"></span>
+    <img src="./assets/img/majoyyo.jpg" style="width: 40px; border-radius: 50%;">
+    <button mat-icon-button class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon">
+        <mat-icon>settings</mat-icon>
+    </button>
+    
+    <button routerLink="/login" mat-icon-button class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon">
+        <mat-icon>logout</mat-icon>
+    </button>
+
+</mat-toolbar>

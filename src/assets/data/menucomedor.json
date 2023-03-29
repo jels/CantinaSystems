@@ -1,0 +1,14 @@
+[
+    {
+        "nombre": "Inicio",
+        "redirect": "/comedor"
+    },
+    {
+        "nombre": "Almuerzos",
+        "redirect": "/comedor/almuerzos"
+    },
+    {
+        "nombre": "Pagos",
+        "redirect": "/comedor/pagos"
+    }
+]

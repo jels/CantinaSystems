@@ -1,0 +1,291 @@
+<div class="container">
+    <mat-toolbar>
+        <span>Calendario de Almuerzos</span>
+        <span class="example-spacer"></span>
+        <span style="color:red;">Recuerde elegir todos los dias, pasado el ultimo dia del mes ya no podra
+            editarlos</span>
+    </mat-toolbar>
+    <div class="mat-elevation-z8" style="margin-top: 10px;">
+        <h1 style="text-align: center; padding-top: 10px;">Marzo</h1>
+        
+        <mat-grid-list cols="7" rowHeight="45px" style="font-weight: bold;">
+            <mat-grid-tile *ngFor="let dia of dias" [colspan]="1" [rowspan]="1" [style.background]="dia.color" [style.color]="dia.text">
+                {{dia.nombredia}}
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="7" rowHeight="75px">
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                26
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                27
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                28
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">1</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">2</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">3</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                4
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                5
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">6</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">7</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">8</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">9</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">10</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                11
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                12
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">13</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">14</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">15</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">16</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">17</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                18
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                19
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">20</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">21</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">22</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">23</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">24</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                25
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                26
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">27</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">28</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">29</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">30</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: green;">
+                <mat-form-field appearance="fill">
+                    <mat-label style="color: green;">31</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
+                            {{food.nombrePlato}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#FFFFFF'" style="color: red;">
+                1
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="1" rowHeight="60px" style="font-weight: bold;">
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <button mat-raised-button color="primary"  style="margin-bottom: 20px;">Guardar Cambios</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+    </div>
+</div>
