@@ -21,7 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -58,7 +58,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatNativeDateModule,
     MatExpansionModule,
     MatListModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule
   ],
   exports:[
     MatFormFieldModule,
@@ -83,7 +84,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatNativeDateModule,
     MatExpansionModule,
     MatListModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule
   ]
 })
 export class SharedModule { }

@@ -1,136 +1,161 @@
-<div class="container">
+<div class="container2">
     <mat-toolbar>
         <span>Calendario de Almuerzos</span>
         <span class="example-spacer"></span>
-        <span style="color:red;">Recuerde elegir todos los dias, pasado el ultimo dia del mes ya no podra
-            editarlos</span>
+        <span style="color:red;">Recuerde que la fecha limite es el ultimo dia del mes</span>
     </mat-toolbar>
 </div>
-<div class="container">
-    <div class="mat-elevation-z8" style="margin-top: 10px;">
-        <h1 style="text-align: center; padding-top: 10px;">Marzo</h1>
+<div class="container2">
+    <div class="mat-elevation-z8">
+        <h1 style="text-align: center; padding-top: 10px;">{{mesNombre}}</h1>
 
-        <mat-grid-list cols="4" rowHeight="45px" style="font-weight: bold;">
-            <mat-grid-tile [colspan]="1" [rowspan]="1">
-                <h1>
-                    Calendario
-                </h1>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="3" [rowspan]="1">
-                <h1>
-                    Lista de Almuerzos
-                </h1>
-            </mat-grid-tile>
-        </mat-grid-list>
-        <mat-grid-list cols="4" rowHeight="250px" style="font-weight: bold;">
+        <div class="text-center">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2>Selección de almuerzos mensuales</h2>
+                    <div class="mat-elevation-z8" style="margin-left: 10px; margin-bottom: 10px;">
+                        <form [formGroup]="almuerzosPorDiaForm">
 
-            <mat-grid-tile [colspan]="1" [rowspan]="2">
-                <mat-vertical-stepper [linear]="false" #stepper animationDuration="500">
-                    <mat-step [stepControl]="firstFormGroup">
-                        <form [formGroup]="firstFormGroup">
-                            <ng-template matStepLabel>Elija la Fecha</ng-template>
-                            <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>Choose a date</mat-label>
-                                <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"
-                                    formControlName="firstCtrl" required>
-                                <mat-hint>DD/MM/YYYY</mat-hint>
-                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker touchUi #picker></mat-datepicker>
-                            </mat-form-field>
-                            <div>
-                                <button mat-button matStepperNext>Siguiente</button>
-                            </div>
+                            <mat-vertical-stepper [linear]="false" #stepper animationDuration="500">
+                                <mat-step [stepControl]="almuerzosPorDiaForm">
+                                    <input matInput placeholder="Placeholder" value="10" hidden>
+                                    <ng-template matStepLabel>Elija la Fecha</ng-template>
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Choose a date</mat-label>
+                                        <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"
+                                            formControlName="firstCtrl" required>
+                                        <mat-hint>DD/MM/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker touchUi #picker></mat-datepicker>
+                                    </mat-form-field>
+                                    <div>
+                                        <button mat-button
+                                            (click)="listaDiariaAlmuerzo(10,almuerzosPorDiaForm.value.firstCtrl.getDay(),almuerzosPorDiaForm.value.firstCtrl.getMonth(),almuerzosPorDiaForm.value.firstCtrl.getFullYear(),almuerzosPorDiaForm.value.firstCtrl.getDate())"
+                                            matStepperNext>Siguiente</button>
+                                    </div>
+                                </mat-step>
+                                <mat-step [stepControl]="almuerzosPorDiaForm">
+                                    <ng-template matStepLabel>Elija el Plato del dia</ng-template>
+                                    <div *ngIf="elegirPlato; else noMostrarMensaje">
+                                        <mat-form-field class="ancho">
+                                            <mat-label>Plato del día</mat-label>
+                                            <mat-select formControlName="secondCtrl" required>
+                                                <mat-option *ngFor="let food of foods" [value]="food.id_almuerzo">
+                                                    {{food.nombre_almuerzo }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <div style="display: flex;">
+                                            <p>
+                                                <mat-checkbox formControlName="ensalada">Ensalada?</mat-checkbox>
+                                            </p>
+                                            <p>
+                                                <mat-checkbox formControlName="sopa">Sopa?</mat-checkbox>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button mat-button matStepperPrevious>Atrás</button>
+                                            <button mat-button matStepperNext>Siguiente</button>
+                                        </div>
+                                    </div>
+                                    <ng-template #noMostrarMensaje>
+                                        <h5>No seleccionaste ningún día...Vuelva arriba y elija una fecha</h5>
+                                    </ng-template>
+                                </mat-step>
+                                <mat-step>
+                                    <ng-template matStepLabel>Guardar</ng-template>
+                                    <br>
+                                    <div>
+                                        <button mat-button matStepperPrevious>Atrás</button>
+                                        <button mat-button (click)="stepper.reset()">Resetear</button>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <button
+                                            (click)="agregarAlmuerzoDiario(10,almuerzosPorDiaForm.value.firstCtrl,almuerzosPorDiaForm.value.secondCtrl,almuerzosPorDiaForm.value.sopa,almuerzosPorDiaForm.value.ensalada )"
+                                            [disabled]="almuerzosPorDiaForm.invalid" mat-raised-button color="primary"
+                                            style="margin-bottom: 20px;">Guardar
+                                            Cambios</button>
+                                    </div>
+                                </mat-step>
+                            </mat-vertical-stepper>
                         </form>
-                    </mat-step>
-                    <mat-step [stepControl]="secondFormGroup">
-                        <form [formGroup]="secondFormGroup">
-                            <ng-template matStepLabel>Elija el Plato del dia</ng-template>
-                            <mat-form-field class="ancho">
-                                <mat-label>Seleccione el Plato</mat-label>
-                                <mat-select formControlName="secondCtrl" required>
-                                    <mat-option *ngFor="let food of foods" [value]="food.idAlmuerzo">
-                                        {{food.nombrePlato }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <div>
-                                <button mat-button matStepperPrevious>Atrás</button>
-                                <button mat-button matStepperNext>Siguiente</button>
-                            </div>
-                        </form>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Guardar</ng-template>
-                        <br>
-                        <div>
-                            <button mat-button matStepperPrevious>Atrás</button>
-                            <button mat-button (click)="stepper.reset()">Resetear</button>
-                        </div>
-                        <br>
-                        <div>
-                            <button mat-raised-button color="primary" style="margin-bottom: 20px;">Guardar
-                                Cambios</button>
-                        </div>
-                    </mat-step>
-                </mat-vertical-stepper>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="3" [rowspan]="2">
-                <div class="mat-elevation-z8">
-                    <mat-form-field>
-                        <mat-label>Filtro</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="Escriba dos o mas letras" #input
-                            autocomplete="off">
-                    </mat-form-field>
-                    <table mat-table [dataSource]="dataSource" matSort>
-                        <!-- ID Column -->
-                        <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-                        </ng-container>
-
-                        <!-- Progress Column -->
-                        <ng-container matColumnDef="progress">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-                            <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
-                        </ng-container>
-
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
-                        </ng-container>
-
-                        <!-- Fruit Column -->
-                        <ng-container matColumnDef="fruit">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
-                            <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="fruit2">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
-                            <td mat-cell *matCellDef="let row"> {{row.fruit2}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="name2">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                            <td mat-cell *matCellDef="let row"> {{row.name2}} </td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                        <!-- Row shown when there is no matching data. -->
-                        <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                        </tr>
-                    </table>
-
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
-                        aria-label="Select page of users"></mat-paginator>
+                    </div>
                 </div>
+                <div class="col-sm-8">
+                    <h2>Lista de almuerzos mensuales</h2>
+                    <div class="mat-elevation-z8" style="margin-right: 10px; margin-bottom: 10px;">
+                        <mat-form-field>
+                            <mat-label>Filtro</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Escriba dos o mas letras" #input
+                                autocomplete="off">
+                        </mat-form-field>
 
+                        <table mat-table [dataSource]="dataSource" matSort>
+                            <!-- ID Column -->
+                            <ng-container matColumnDef="fecha_completa_almuerzo">
+                                <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                                <td mat-cell *matCellDef="let listaAlmuerzosDiariosUsr">
+                                    {{listaAlmuerzosDiariosUsr.fecha_completa_almuerzo}}
+                                </td>
+                            </ng-container>
 
-            </mat-grid-tile>
-        </mat-grid-list>
+                            <!-- Progress Column -->
+                            <ng-container matColumnDef="nombre_almuerzo">
+                                <th mat-header-cell *matHeaderCellDef>Almuerzo</th>
+                                <td mat-cell *matCellDef="let listaAlmuerzosDiariosUsr">
+                                    {{listaAlmuerzosDiariosUsr.nombre_almuerzo}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estado_ensalada">
+                                <th mat-header-cell *matHeaderCellDef>Ensalada</th>
+                                <td mat-cell *matCellDef="let listaAlmuerzosDiariosUsr">
+                                    <div *ngIf="listaAlmuerzosDiariosUsr.estado_ensalada==1">SI</div>
+                                    <div *ngIf="listaAlmuerzosDiariosUsr.estado_ensalada==0">NO</div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="estado_sopa">
+                                <th mat-header-cell *matHeaderCellDef>Sopa</th>
+                                <td mat-cell *matCellDef="let listaAlmuerzosDiariosUsr">
+                                    <div *ngIf="listaAlmuerzosDiariosUsr.estado_sopa==1">SI</div>
+                                    <div *ngIf="listaAlmuerzosDiariosUsr.estado_sopa==0">NO</div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estadoAlmuerzoEstudiante">
+                                <th mat-header-cell *matHeaderCellDef>Estado</th>
+                                <td mat-cell *matCellDef="let listaAlmuerzosDiariosUsr">
+                                    <div *ngIf="listaAlmuerzosDiariosUsr.estadoAlmuerzoEstudiante==1"
+                                        style="color: green;">ACTIVO</div>
+                                    <div *ngIf="listaAlmuerzosDiariosUsr.estadoAlmuerzoEstudiante==0"
+                                        style="color: red;"></div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Fruit Column -->
+                            <ng-container matColumnDef="eliminar">
+                                <th mat-header-cell *matHeaderCellDef> Eliminar? </th>
+                                <td mat-cell *matCellDef="let listaAlmuerzosDiariosUsr">
+                                    <a class="pointer" style="color: red;" matTooltip="Eliminar Almuerzo" (click)="elimiarAlmuerzoDiario(listaAlmuerzosDiariosUsr.idalmuerzoxdia)">
+                                        <mat-icon>delete</mat-icon>
+                                    </a>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

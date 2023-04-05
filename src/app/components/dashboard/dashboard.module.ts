@@ -15,6 +15,9 @@ import { NuevoMenudiarioComponent } from './horarios/nuevo-menudiario/nuevo-menu
 import { EditarUsuarioComponent } from './usuarios/editar-usuario/editar-usuario.component';
 import { VerDatosComponent } from './usuarios/ver-datos/ver-datos.component';
 import { CargarDatosComponent } from './cargar-datos/cargar-datos.component';
+import { AlmuerzosComponent } from './almuerzos/almuerzos.component';
+import { NewAlmuerzoComponent } from './almuerzos/new-almuerzo/new-almuerzo.component';
+import { MenuMensualComponent } from './menu-mensual/menu-mensual.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { CargarDatosComponent } from './cargar-datos/cargar-datos.component';
     NuevoMenudiarioComponent,
     EditarUsuarioComponent,
     VerDatosComponent,
-    CargarDatosComponent
+    CargarDatosComponent,
+    AlmuerzosComponent,
+    NewAlmuerzoComponent,
+    MenuMensualComponent
   ],
   imports: [
     CommonModule,

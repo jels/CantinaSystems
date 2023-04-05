@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AlmuerzosComponent } from './almuerzos/almuerzos.component';
+import { NewAlmuerzoComponent } from './almuerzos/new-almuerzo/new-almuerzo.component';
 import { CargarDatosComponent } from './cargar-datos/cargar-datos.component';
 import { DashboardComponent } from './dashboard.component';
 import { HorariosComponent } from './horarios/horarios.component';
 import { NuevoMenudiarioComponent } from './horarios/nuevo-menudiario/nuevo-menudiario.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { MenuMensualComponent } from './menu-mensual/menu-mensual.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { CrearUsuarioComponent } from './usuarios/crear-usuario/crear-usuario.component';
@@ -14,7 +17,7 @@ import { VerDatosComponent } from './usuarios/ver-datos/ver-datos.component';
 
 const routes: Routes = [
   {
-    path: '', component: DashboardComponent, children:[
+    path: '', component: DashboardComponent, children: [
       {
         path: '', component: InicioComponent
       },
@@ -44,7 +47,17 @@ const routes: Routes = [
       },
       {
         path: 'cargar-datos', component: CargarDatosComponent
+      },
+      {
+        path: 'almuerzos', component: AlmuerzosComponent
+      },
+      {
+        path: 'almuerzos/new-almuerzo', component: NewAlmuerzoComponent
+      },
+      {
+        path: 'menu', component: MenuMensualComponent
       }
+
     ]
   }
 ];

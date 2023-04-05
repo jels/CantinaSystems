@@ -3,8 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ListUsuario } from 'src/app/interfaces/listUsers';
-import { Usuario } from 'src/app/interfaces/usuario';
+import { bajaUser } from 'src/app/interfaces/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -15,25 +14,26 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class UsuariosComponent implements OnInit {
 
   listUsuarios: any;
+  estado: number = 0;
+
+  bUser: bajaUser = {
+    estado_user: 0,
+    id_user: 0
+  };
 
   displayedColumns: string[] = ['id_users', 'user_name', 'user_pass', 'user_nombre', 'user_apellido', 'acronimoEntidad', 'acronimoNivel', 'cicloNivel', 'user_estado', 'acciones'];
-  dataSource!: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _usuarioService: UsuarioService, private _snackBar: MatSnackBar) { }
+  constructor(private _usuarioService: UsuarioService, private _snackBar: MatSnackBar) {
+    this.dataSource = new MatTableDataSource();
+    this.bUser
+  }
 
   ngOnInit(): void {
     this.cargarUsuarios();
-  }
-
-  cargarUsuarios() {
-    this._usuarioService.getAllUsers().subscribe(respuesta => {
-      console.log(respuesta);
-      this.listUsuarios = respuesta;
-      this.dataSource = new MatTableDataSource(this.listUsuarios);
-    });
   }
 
   ngAfterViewInit() {
@@ -47,16 +47,30 @@ export class UsuariosComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  eliminarUsuario(index: number) {
+  cargarUsuarios() {
+    this._usuarioService.getAllUsers().subscribe(respuesta => {
+      console.log(respuesta);
+      this.listUsuarios = respuesta;
+      this.dataSource = new MatTableDataSource(this.listUsuarios);
+    });
+  }
 
-    console.log(index);
-    this._usuarioService.darDeBajaUsuario(index, 0);
-    //this._snackBar.open('El usuario fue Dado de baja correctamente', '', {
-    //  duration: 5000,
-    //  horizontalPosition: 'center',
-    //  verticalPosition: 'bottom'
-    //});
-    //location.reload();
+  eliminarUsuario(index: number, estado: number) {
+    if (estado == 1) {
+      this.estado = 0;
+    } else {
+      this.estado = 1;
+    }
+    this.bUser.estado_user = this.estado;
+    this.bUser.id_user = Number(index);
+    console.log(this.bUser);
+    this._usuarioService.darDeBajaUsuario(this.bUser).subscribe(data => { console.log(data); });
+    this._snackBar.open('El usuario fue dado de baja correctamente', '', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
+    location.reload();
 
   }
 
@@ -67,6 +81,5 @@ export class UsuariosComponent implements OnInit {
   verDatos(index: number) {
     console.log(index);
   }
-
 
 }

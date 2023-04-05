@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/interfaces/usuario';
 import { EntidadesService } from 'src/app/services/entidades.service';
 import { NivelesService } from 'src/app/services/niveles.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -58,23 +57,22 @@ export class CrearUsuarioComponent implements OnInit {
       console.log(respuesta);
       this.entidades = respuesta;
     });
-    this._niveles.getEntidades().subscribe(respuesta => {
+    this._niveles.getNiveles().subscribe(respuesta => {
       console.log(respuesta);
       this.niveles = respuesta;
     });
-
   }
 
   agregarUsuario() {
     console.log(this.form);
     console.log(this.form.value);
     this._usuarioService.agregarUsuario(this.form.value).subscribe();
-    this.router.navigate(['/dashboard/usuarios']);
     this._snackBar.open('El usuario fue creado correctamente', '', {
       duration: 5000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom'
     });
+    this.router.navigate(['/dashboard/usuarios']);
   }
 
 }

@@ -20,6 +20,7 @@ if (isset($_GET["consultar"])){
     }
     else{  echo json_encode(["success"=>0]); }
 }
+
 if (isset($_GET["ordenado"])){
     $sqlEmpleaados = mysqli_query($conexionBD,"SELECT u.id_users, u.user_name, u.user_nombre, u.user_pass, u.user_apellido, e.acronimoEntidad, n.acronimoNivel, n.cicloNivel, u.user_estado FROM users u, entidades e, niveles n WHERE u.idEntidad=e.idEntidad AND u.idNivel=n.idNivel ORDER BY u.user_apellido ASC;");
     if(mysqli_num_rows($sqlEmpleaados) > 0){
@@ -30,15 +31,12 @@ if (isset($_GET["ordenado"])){
     else{  echo json_encode(["success"=>0]); }
 }
 //borrar pero se le debe de enviar una clave ( para borrado )
-if(isset($_GET["baja"])){
-    
-    $data = json_decode(file_get_contents("php://input"));
 
-    $id=(isset($data->id))?$data->id:$_GET["baja"];
-    $estado=$data->estado;
-    echo $estado; 
-    echo $id;
-    $sqlEmpleaados = mysqli_query($conexionBD,"UPDATE users SET user_estado = '$estado' WHERE id_users='$id'");
+if(isset($_GET["baja"])){
+    $data = json_decode(file_get_contents("php://input"));
+    $id_user=$data->id_user;
+    $estado_user=$data->estado_user;
+    $sqlUsuarios = mysqli_query($conexionBD,"UPDATE users SET user_estado = $estado_user WHERE id_users = $id_user");
     echo json_encode(["success"=>1]);
     exit();
 }
@@ -57,7 +55,7 @@ if(isset($_GET["insertar"])){
     $seccion_user=$data->seccion_user;
         if(($user_name!="")&&($user_pass!="")&&($user_rol!="")&&($user_foto!="")&&($user_apellido!="")&&($user_nombre!="")&&($idEntidad!="")&&($idNivel!="")){
             
-    $sqlEmpleaados = mysqli_query($conexionBD,"INSERT INTO users(id_users, user_name, user_pass, user_rol, user_estado, user_foto, user_apellido, user_nombre, idEntidad, idNivel, seccion_user) VALUES (null, '$user_name', '$user_pass', '$user_rol', $user_estado, '$user_foto', '$user_apellido', '$user_nombre', $idEntidad, $idNivel, '$seccion_user'); ");
+    $sqlUsuarios = mysqli_query($conexionBD,"INSERT INTO users(id_users, user_name, user_pass, user_rol, user_estado, user_foto, user_apellido, user_nombre, idEntidad, idNivel, seccion_user) VALUES (null, '$user_name', '$user_pass', '$user_rol', $user_estado, '$user_foto', '$user_apellido', '$user_nombre', $idEntidad, $idNivel, '$seccion_user'); ");
 
     echo json_encode(["success"=>1]);
         }

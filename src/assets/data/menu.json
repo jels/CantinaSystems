@@ -8,8 +8,8 @@
         "redirect": "/dashboard/usuarios"
     },
     {
-        "nombre": "Horarios",
-        "redirect": "/dashboard/horarios"
+        "nombre": "Menús",
+        "redirect": "/dashboard/menu"
     },
     {
         "nombre": "Pagos",
@@ -18,5 +18,9 @@
     {
         "nombre": "Reportes",
         "redirect": "/dashboard/reportes"
+    },
+    {
+        "nombre": "Almuerzos",
+        "redirect": "/dashboard/almuerzos"
     }
 ]

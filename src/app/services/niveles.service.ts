@@ -10,7 +10,7 @@ export class NivelesService {
 
   constructor( private clientHttp: HttpClient ) { }
 
-  getEntidades(){
+  getNiveles(){
     return this.clientHttp.get(this.API);
   }
 }

@@ -11,3 +11,8 @@ export interface Usuario {
     idNivel: string,
     seccion_user: string
 }
+
+export interface bajaUser {
+    id_user: number,
+    estado_user: number
+}
