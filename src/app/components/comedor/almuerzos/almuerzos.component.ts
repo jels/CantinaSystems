@@ -16,6 +16,7 @@ const DIAS: string[] = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'V
 })
 export class AlmuerzosComponent implements AfterViewInit {
 
+  saldo: any;
   foods: any;
   listaAlmuerzosDiariosUsr: any;
 
@@ -35,6 +36,7 @@ export class AlmuerzosComponent implements AfterViewInit {
   dataSource: MatTableDataSource<any>;
 
   mesActual = new Date().getMonth();
+  anhoActual = new Date().getFullYear();
 
   mesNombre: string = MESES[this.mesActual];
 
@@ -66,6 +68,7 @@ export class AlmuerzosComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.mesNombre;
     this.cargarAlmuerzosPorUsuario(10);
+    this.calcularSaldoActual(10, this.mesActual + 1, this.anhoActual);
   }
 
   applyFilter(event: Event) {
@@ -95,7 +98,6 @@ export class AlmuerzosComponent implements AfterViewInit {
   }
 
   agregarAlmuerzoDiario(idUser: number, fecha: any, idAlmuerzo: number, opcionSopa: any, opcionEnsalada: any) {
-
     this.diaNombre = DIAS[fecha.getDay()];
     this.diaNumero = fecha.getDate();
     this.mes = fecha.getMonth();
@@ -104,9 +106,7 @@ export class AlmuerzosComponent implements AfterViewInit {
     this.fechaExtendida = (DIAS[fecha.getDay()] + ", " + fecha.getDate() + " de " + MESES[this.mes] + " de " + this.anho);
     console.log("Este es Fecha Completa: " + this.fechaCompleta);
     console.log("Este es Fecha Extendida: " + this.fechaExtendida);
-
     let myNumber: number = +idAlmuerzo;
-
     const almuerzosDiarios = {
       idUser: idUser,
       idAlmuerzo: myNumber,
@@ -136,11 +136,9 @@ export class AlmuerzosComponent implements AfterViewInit {
         verticalPosition: 'bottom'
       });
       this.cargarAlmuerzosPorUsuario(10);
+      this.calcularSaldoActual(10,this.mesActual+1, this.anho);
       this.almuerzosPorDiaForm.reset();
     }
-
-
-    //location.reload();
   }
 
   cargarAlmuerzosPorUsuario(idUsuario: number) {
@@ -149,7 +147,6 @@ export class AlmuerzosComponent implements AfterViewInit {
       this.listaAlmuerzosDiariosUsr = respuesta;
       this.dataSource = new MatTableDataSource(this.listaAlmuerzosDiariosUsr);
     });
-
   }
 
   elimiarAlmuerzoDiario(id: number) {
@@ -160,6 +157,13 @@ export class AlmuerzosComponent implements AfterViewInit {
       verticalPosition: 'bottom'
     });
     this.cargarAlmuerzosPorUsuario(10);
-    //location.reload();
+    this.calcularSaldoActual(10,this.mesActual+1, this.anho);
+  }
+
+  calcularSaldoActual(idUser: number, mes: number, ano: number) {
+    this._almuerzos.contarCantidadAlmuerzoUserMes(idUser, mes, ano).subscribe(respuesta => {
+      this.saldo = Number(respuesta) * 12 + ".000 Gs";
+      console.log(respuesta);
+    });
   }
 }

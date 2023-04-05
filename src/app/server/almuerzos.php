@@ -73,6 +73,14 @@ if (isset($_GET["contarAlmuerzosDiariosMenu"])){
     echo json_encode($almuerzos["cantidad"]);
 }
 
+//
+if (isset($_GET["contarCantidadAlmuerzosUserMes"])){
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT COUNT(idalmuerzoxdia) AS 'cantidad' FROM almuerzoxdia WHERE id_users = ".$_GET["contarCantidadAlmuerzosUserMes"]." AND mes_almuerzo = ".$_GET["mes"]." AND ano_almuerzo = ".$_GET["anho"]);
+    $almuerzos = mysqli_fetch_array($sqlAlmuerzos);
+    echo json_encode($almuerzos["cantidad"]);
+}
+
+
 // Inserta Almuerzos Diarios por alumno (en este es el caso que los padres podrían insertar sus almuerzos)
 if(isset($_GET["insertarAlmuerzosDiarios"])){
     $data = json_decode(file_get_contents("php://input"));

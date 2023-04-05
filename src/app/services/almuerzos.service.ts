@@ -28,6 +28,10 @@ export class AlmuerzosService {
     return this.clientHttp.post(this.API + "?insertarMenuMensual=1", newAlmuerzoMensual);
   }
 
+  contarCantidadAlmuerzoUserMes(id: number, mes: number, anho: number) {
+    return this.clientHttp.get(this.API + "?contarCantidadAlmuerzosUserMes=" + id + "&mes=" + mes + "&anho=" + anho);
+  }
+
   //newAlmuerzos(newAlmuerzo: any): Observable<any> {
   //  return this.clientHttp.post(this.API + "?insertarAlmuerzosDiarios=1", newAlmuerzo);
   //}
@@ -37,9 +41,9 @@ export class AlmuerzosService {
   }
 
   getAlmuerzos() {
-    return this.clientHttp.get(this.API+"?default");
+    return this.clientHttp.get(this.API + "?default");
   }
-  getCantidadMenusDiario(fecha: string){
+  getCantidadMenusDiario(fecha: string) {
     return this.clientHttp.get(this.API + "?contarAlmuerzosDiariosMenu=" + fecha);
   }
 
