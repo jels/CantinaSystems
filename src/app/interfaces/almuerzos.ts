@@ -1,9 +1,13 @@
 export interface Almuerzo {
-    id_almuerzo: number;
-    nombre_almuerzo: string;
-    descripcion_almuerzo: string;
-    foto_almuerzo: string;
-    estado_almuerzo: number;
+    id_almuerzo: number,
+    nombre_almuerzo: string,
+    descripcion_almuerzo: string,
+    foto_almuerzo: string,
+    estado_almuerzo: number
+}
+export interface NuevoMenu {
+    nombre_almuerzo: string,
+    descripcion_almuerzo: string
 }
 
 export interface AlmuerzoMensual {

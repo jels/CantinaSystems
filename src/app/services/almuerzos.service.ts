@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AlmuerzoMensual } from '../interfaces/almuerzos';
+import { AlmuerzoMensual, NuevoMenu } from '../interfaces/almuerzos';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class AlmuerzosService {
 
   constructor(private clientHttp: HttpClient) { }
 
-  newAlmuerzo(newPlato: any): Observable<any> {
-    return this.clientHttp.post(this.API + "?insertarAlmuerzo=1", newPlato);
+  newMenu(newPlato: any): Observable<any> {
+    return this.clientHttp.post(this.API + "?insertarMenuNuevo", newPlato);
   }
 
   existeAlmuerzoMensualUsr(id: number, fecha: string) {
@@ -31,10 +31,6 @@ export class AlmuerzosService {
   contarCantidadAlmuerzoUserMes(id: number, mes: number, anho: number) {
     return this.clientHttp.get(this.API + "?contarCantidadAlmuerzosUserMes=" + id + "&mes=" + mes + "&anho=" + anho);
   }
-
-  //newAlmuerzos(newAlmuerzo: any): Observable<any> {
-  //  return this.clientHttp.post(this.API + "?insertarAlmuerzosDiarios=1", newAlmuerzo);
-  //}
 
   getAllAlmuersosUser(id: number, mes: number) {
     return this.clientHttp.get(this.API + "?almuerzosUserMensual=" + id + "&mes=" + mes);
@@ -61,6 +57,9 @@ export class AlmuerzosService {
 
   eliminarAlmuerzoUsr(id: number) {
     return this.clientHttp.get(this.API + "?eliminarAlmuerzoMensualUsr=" + id);
+  }
 
+  eliminarMenuMensual(id: number) {
+    return this.clientHttp.get(this.API + "?eliminarMenuMensual=" + id);
   }
 }

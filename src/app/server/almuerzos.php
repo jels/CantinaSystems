@@ -108,6 +108,16 @@ if (isset($_GET["eliminarAlmuerzoMensualUsr"])){
     else{  echo json_encode(["success"=>0]); }
 }
 
+//
+if (isset($_GET["eliminarMenuMensual"])){
+    $sqlMenu = mysqli_query($conexionBD,"DELETE FROM lista_de_almuerzos_mensuales WHERE id_lista_de_almuerzos_mensuales=".$_GET["eliminarMenuMensual"]);
+    if($sqlMenu){
+        echo json_encode(["success"=>1]);
+        exit();
+    }
+    else{  echo json_encode(["success"=>0]); }
+}
+
 //Inserta un nuevo registro y recepciona en método post los datos de nombre y correo
 if(isset($_GET["insertarMenuMensual"])){
     $data = json_decode(file_get_contents("php://input"));
@@ -117,12 +127,20 @@ if(isset($_GET["insertarMenuMensual"])){
     $ano_lista_almuerzo=$data->ano_lista_almuerzo;
     $fechaCompleta=$data->fechaCompleta;
     $dia_completo_almuerzo=$data->dia_completo_almuerzo;
-    $sqlEmpleaados = mysqli_query($conexionBD,"INSERT INTO lista_de_almuerzos_mensuales(id_lista_de_almuerzos_mensuales, id_almuerzo, mes_lista_almuerzo, dia_lista_almuerzo, ano_lista_almuerzo, fechaCompleta, dia_completo_almuerzo, estado_almuerzo_mensual) VALUES (null,$id_almuerzo,$mes_lista_almuerzo,$dia_lista_almuerzo,$ano_lista_almuerzo,'$fechaCompleta','$dia_completo_almuerzo',1);");
+    $sqlAlmuerzos = mysqli_query($conexionBD,"INSERT INTO lista_de_almuerzos_mensuales(id_lista_de_almuerzos_mensuales, id_almuerzo, mes_lista_almuerzo, dia_lista_almuerzo, ano_lista_almuerzo, fechaCompleta, dia_completo_almuerzo, estado_almuerzo_mensual) VALUES (null,$id_almuerzo,$mes_lista_almuerzo,$dia_lista_almuerzo,$ano_lista_almuerzo,'$fechaCompleta','$dia_completo_almuerzo',1);");
     echo json_encode(["success"=>1]);
     exit();
 }
 
-
+//Inserta un nuevo registro y recepciona en método post los datos de nombre y correo
+if(isset($_GET["insertarMenuNuevo"])){
+    $data = json_decode(file_get_contents("php://input"));
+    $nombre_almuerzo=$data->nombre_almuerzo;
+    $descripcion_almuerzo=$data->descripcion_almuerzo;
+    $sqlNewMenu = mysqli_query($conexionBD,"INSERT INTO almuerzo(id_almuerzo, nombre_almuerzo, descripcion_almuerzo, foto_almuerzo, estado_almuerzo) VALUES (null, '$nombre_almuerzo', '$descripcion_almuerzo', 'En proceso...', 1);");
+    echo json_encode(["success"=>1]);
+    exit();
+}
 
 // Consulta todos los registros de la tabla almuerzo, depediendo si estan activos. esta es la consulta que lanza la api automatica
 if (isset($_GET["default"])){

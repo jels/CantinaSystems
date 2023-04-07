@@ -86,6 +86,7 @@ export class AlmuerzosComponent implements AfterViewInit {
     console.log(this.diaCompleto);
     this._almuerzos.getAlmuerzosDia(this.diaCompleto).subscribe(respuesta => {
       this.foods = respuesta;
+      console.log(respuesta);
     });
     this._almuerzos.existeAlmuerzoMensualUsr(10, this.diaCompleto).subscribe(resp => {
       console.log(resp);
@@ -135,9 +136,8 @@ export class AlmuerzosComponent implements AfterViewInit {
         horizontalPosition: 'center',
         verticalPosition: 'bottom'
       });
-      this.cargarAlmuerzosPorUsuario(10);
-      this.calcularSaldoActual(10,this.mesActual+1, this.anho);
       this.almuerzosPorDiaForm.reset();
+      location.reload();
     }
   }
 
@@ -158,6 +158,7 @@ export class AlmuerzosComponent implements AfterViewInit {
     });
     this.cargarAlmuerzosPorUsuario(10);
     this.calcularSaldoActual(10,this.mesActual+1, this.anho);
+    location.reload();
   }
 
   calcularSaldoActual(idUser: number, mes: number, ano: number) {
