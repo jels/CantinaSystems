@@ -52,6 +52,7 @@ if (isset($_GET["almuerzosUserMensual"])){
     }
     else{  echo json_encode(["success"=>0]); }
 }
+
 //
 if (isset($_GET["existeAlmuerzoDiarioUser"])){
     $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT fecha_almuerzo FROM almuerzoxdia WHERE fecha_almuerzo='".$_GET["fecha"]."' AND id_users=".$_GET["existeAlmuerzoDiarioUser"]);
@@ -93,7 +94,7 @@ if(isset($_GET["insertarAlmuerzosDiarios"])){
     $anhoAl=$data->anho;
     $opcionSopaAl=$data->opcionSopa;
     $opcionEnsaladaAl=$data->opcionEnsalada;
-    $sql = mysqli_query($conexionBD,"INSERT INTO almuerzoxdia(idalmuerzoxdia, id_users, id_almuerzo, fecha_completa_almuerzo, dia_almuerzo, mes_almuerzo, ano_almuerzo, fecha_almuerzo, estadoAlmuerzoEstudiante, estado_sopa, estado_ensalada) VALUES (null,$idU,$idAl,'$fechaComple',$diaAl,$mesAl,$anhoAl,'$fechaAl',1,$opcionSopaAl,$opcionEnsaladaAl);");
+    $sql = mysqli_query($conexionBD,"INSERT INTO almuerzoxdia(idalmuerzoxdia, id_users, id_almuerzo, fecha_completa_almuerzo, dia_almuerzo, mes_almuerzo, ano_almuerzo, fecha_almuerzo, estadoAlmuerzoEstudiante, estado_sopa, estado_ensalada, estado_entregado) VALUES (null,$idU,$idAl,'$fechaComple',$diaAl,$mesAl,$anhoAl,'$fechaAl',1,$opcionSopaAl,$opcionEnsaladaAl,0);");
     echo json_encode(["success"=>1]);
     exit();
 }
@@ -141,6 +142,35 @@ if(isset($_GET["insertarMenuNuevo"])){
     echo json_encode(["success"=>1]);
     exit();
 }
+
+//SELECT u.user_nombre, u.user_apellido, a.nombre_almuerzo, e.acronimoEntidad, n.acronimoNivel FROM almuerzoxdia ax, users u, entidades e, niveles n, almuerzo a WHERE u.id_users=ax.id_users AND a.id_almuerzo=ax.id_almuerzo AND e.idEntidad=u.idEntidad AND n.idNivel=u.idNivel AND ax.fecha_almuerzo='10/4/2023' ORDER BY n.cicloNivel
+if (isset($_GET["listaDeAlmuerzosPorDia"])){
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT ax.idalmuerzoxdia, u.user_nombre, u.user_apellido, a.nombre_almuerzo, e.acronimoEntidad, n.acronimoNivel, ax.estado_entregado FROM almuerzoxdia ax, users u, entidades e, niveles n, almuerzo a WHERE u.id_users=ax.id_users AND a.id_almuerzo=ax.id_almuerzo AND e.idEntidad=u.idEntidad AND n.idNivel=u.idNivel AND ax.fecha_almuerzo='".$_GET["listaDeAlmuerzosPorDia"]."' ORDER BY n.cicloNivel");
+    if(mysqli_num_rows($sqlAlmuerzos) > 0){
+        $almuerzosDiarios = mysqli_fetch_all($sqlAlmuerzos,MYSQLI_ASSOC);
+        echo json_encode($almuerzosDiarios);
+        exit();
+    }
+    else{  echo json_encode(["success"=>0]); }
+}
+
+
+//borrar pero se le debe de enviar una clave ( para borrado )
+if(isset($_GET["entregarAlmuerzo"])){
+    $data = json_decode(file_get_contents("php://input"));
+    $sqlAlmuerzos = mysqli_query($conexionBD,"UPDATE almuerzoxdia SET estado_entregado = 1 WHERE idalmuerzoxdia = ".$_GET["entregarAlmuerzo"]);
+    echo json_encode(["success"=>1]);
+    exit();
+}
+
+//
+if (isset($_GET["contarPendientesEntregar"])){
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT COUNT(idalmuerzoxdia) AS 'cantidad' FROM almuerzoxdia WHERE estado_entregado=0 AND fecha_almuerzo= '".$_GET["contarPendientesEntregar"]."'");
+    $almuerzos = mysqli_fetch_array($sqlAlmuerzos);
+    echo json_encode($almuerzos["cantidad"]);
+}
+
+
 
 // Consulta todos los registros de la tabla almuerzo, depediendo si estan activos. esta es la consulta que lanza la api automatica
 if (isset($_GET["default"])){

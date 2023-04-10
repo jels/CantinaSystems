@@ -12,8 +12,9 @@ export class AlmuerzosService {
 
   constructor(private clientHttp: HttpClient) { }
 
-  newMenu(newPlato: any): Observable<any> {
-    return this.clientHttp.post(this.API + "?insertarMenuNuevo", newPlato);
+  newMenu(newPlato: NuevoMenu): Observable<any> {
+    console.log(newPlato);
+    return this.clientHttp.post(this.API + "?insertarMenuNuevo=1", newPlato);
   }
 
   existeAlmuerzoMensualUsr(id: number, fecha: string) {
@@ -39,6 +40,7 @@ export class AlmuerzosService {
   getAlmuerzos() {
     return this.clientHttp.get(this.API + "?default");
   }
+
   getCantidadMenusDiario(fecha: string) {
     return this.clientHttp.get(this.API + "?contarAlmuerzosDiariosMenu=" + fecha);
   }
@@ -62,4 +64,19 @@ export class AlmuerzosService {
   eliminarMenuMensual(id: number) {
     return this.clientHttp.get(this.API + "?eliminarMenuMensual=" + id);
   }
+
+  listarAlmuerzosDiariosCocina(fecha: string) {
+    return this.clientHttp.get(this.API + "?listaDeAlmuerzosPorDia=" + fecha);
+  }
+
+  entregarAlmuerzoEstudiante(id: number) {
+    return this.clientHttp.get(this.API + "?entregarAlmuerzo=" + id);
+  }
+
+  getCantidadPendientesDiario(fecha: string) {
+    return this.clientHttp.get(this.API + "?contarPendientesEntregar=" + fecha);
+  }
+
+
+
 }

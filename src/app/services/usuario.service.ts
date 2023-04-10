@@ -8,13 +8,24 @@ import { bajaUser, Usuario } from '../interfaces/usuario';
 })
 export class UsuarioService {
 
+  idUserGlobal: number = 0;
+
   API: string = 'http://localhost/cantinasystems/src/app/server/users.php/';
 
   constructor(private clientHttp: HttpClient) { }
 
   getAllUsers() {
-    return this.clientHttp.get(this.API);
+    return this.clientHttp.get(this.API + "?getAllUsers");
   }
+
+  getExistUser(userName: string, password: string) {
+    return this.clientHttp.get(this.API + "?existeUser=" + 1 + "&userName=" + userName + "&password=" + password);
+  }
+
+  getDatosUser(idUser: number) {
+    return this.clientHttp.get(this.API + "?datosUser=" + idUser);
+  }
+
   getUsersByApellido() {
     return this.clientHttp.get(this.API + "?ordenado");
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,15 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
 
+  loginUser!: any;
+
+  existeUser: number = 0;
+  idUsuario: number = 0;
+
   constructor(private fb: FormBuilder,
     private _snackBar: MatSnackBar,
-    private router: Router) {
+    private router: Router,
+    private _userService: UsuarioService) {
 
     this.form = this.fb.group({
       usuario: ['', Validators.required],
@@ -30,7 +37,14 @@ export class LoginComponent implements OnInit {
     console.log(this.form);
     const usuario = this.form.value.usuario;
     const password = this.form.value.password;
+
     console.log(usuario, password);
+
+    this._userService.getExistUser(usuario, password).subscribe(respuesta => {
+      this.loginUser = respuesta;
+      console.log(this.loginUser);
+    })
+    
 
     if (usuario == 'admin' && password == 'admin123') {
       this.fakeLoading();
@@ -60,9 +74,7 @@ export class LoginComponent implements OnInit {
 
   fakeLoading() {
     this.loading = true;
-
     setTimeout(() => {
-
       this.loading = false;
     }, 1500);
   }

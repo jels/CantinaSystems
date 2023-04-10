@@ -9,18 +9,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "syscomedor";
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
-
-// Consulta datos y recepciona una clave para consultar dichos datos con dicha clave
-if (isset($_GET["consultar"])){
-    $sqlEmpleaados = mysqli_query($conexionBD,"SELECT * FROM empleados WHERE id=".$_GET["consultar"]);
-    if(mysqli_num_rows($sqlEmpleaados) > 0){
-        $empleaados = mysqli_fetch_all($sqlEmpleaados,MYSQLI_ASSOC);
-        echo json_encode($empleaados);
-        exit();
-    }
-    else{  echo json_encode(["success"=>0]); }
-}
-
 if (isset($_GET["ordenado"])){
     $sqlEmpleaados = mysqli_query($conexionBD,"SELECT u.id_users, u.user_name, u.user_nombre, u.user_pass, u.user_apellido, e.acronimoEntidad, n.acronimoNivel, n.cicloNivel, u.user_estado FROM users u, entidades e, niveles n WHERE u.idEntidad=e.idEntidad AND u.idNivel=n.idNivel ORDER BY u.user_apellido ASC;");
     if(mysqli_num_rows($sqlEmpleaados) > 0){
@@ -30,8 +18,8 @@ if (isset($_GET["ordenado"])){
     }
     else{  echo json_encode(["success"=>0]); }
 }
-//borrar pero se le debe de enviar una clave ( para borrado )
 
+//borrar pero se le debe de enviar una clave ( para borrado )
 if(isset($_GET["baja"])){
     $data = json_decode(file_get_contents("php://input"));
     $id_user=$data->id_user;
@@ -40,6 +28,7 @@ if(isset($_GET["baja"])){
     echo json_encode(["success"=>1]);
     exit();
 }
+
 //Inserta un nuevo registro y recepciona en método post los datos de nombre y correo
 if(isset($_GET["insertar"])){
     $data = json_decode(file_get_contents("php://input"));
@@ -61,6 +50,46 @@ if(isset($_GET["insertar"])){
         }
     exit();
 }
+
+//
+if (isset($_GET["existeUser"])){
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT u.id_users, u.user_rol, u.user_pass, u.user_name, u.user_nombre, u.user_apellido, u.user_foto, e.acronimoEntidad FROM users u, entidades e WHERE e.idEntidad=u.idEntidad AND u.user_estado=1 AND  u.user_name = '".$_GET["userName"]."' AND u.user_pass = '".$_GET["password"]."'");
+    if(mysqli_num_rows($sqlAlmuerzos) > 0){
+        $almuerzos = mysqli_fetch_all($sqlAlmuerzos,MYSQLI_ASSOC);
+        echo json_encode($almuerzos);
+        exit();
+    }
+    else{  echo json_encode(["0"]); }
+}
+
+// Consulta todos los registros de la tabla empleados
+if(isset($_GET["getAllUsers"])){
+    $sqlEmpleaados = mysqli_query($conexionBD,"SELECT u.id_users, u.user_name, u.user_nombre, u.user_pass, u.user_apellido, e.acronimoEntidad, n.acronimoNivel, n.cicloNivel, u.user_estado FROM users u, entidades e, niveles n WHERE u.idEntidad=e.idEntidad AND u.idNivel=n.idNivel ORDER BY u.id_users ASC;");
+    if(mysqli_num_rows($sqlEmpleaados) > 0){
+        $empleaados = mysqli_fetch_all($sqlEmpleaados,MYSQLI_ASSOC);
+        echo json_encode($empleaados);
+    }
+    else{ echo json_encode([["success"=>0]]); 
+    }
+}
+
+
+
+
+
+
+
+// Consulta datos y recepciona una clave para consultar dichos datos con dicha clave
+if (isset($_GET["consultar"])){
+    $sqlEmpleaados = mysqli_query($conexionBD,"SELECT * FROM empleados WHERE id=".$_GET["consultar"]);
+    if(mysqli_num_rows($sqlEmpleaados) > 0){
+        $empleaados = mysqli_fetch_all($sqlEmpleaados,MYSQLI_ASSOC);
+        echo json_encode($empleaados);
+        exit();
+    }
+    else{  echo json_encode(["success"=>0]); }
+}
+
 // Actualiza datos pero recepciona datos de nombre, correo y una clave para realizar la actualización
 if(isset($_GET["actualizar"])){
     
@@ -73,14 +102,6 @@ if(isset($_GET["actualizar"])){
     $sqlEmpleaados = mysqli_query($conexionBD,"UPDATE empleados SET nombre='$nombre',correo='$correo' WHERE id='$id'");
     echo json_encode(["success"=>1]);
     exit();
-}
-// Consulta todos los registros de la tabla empleados
-$sqlEmpleaados = mysqli_query($conexionBD,"SELECT u.id_users, u.user_name, u.user_nombre, u.user_pass, u.user_apellido, e.acronimoEntidad, n.acronimoNivel, n.cicloNivel, u.user_estado FROM users u, entidades e, niveles n WHERE u.idEntidad=e.idEntidad AND u.idNivel=n.idNivel ORDER BY u.id_users ASC;");
-if(mysqli_num_rows($sqlEmpleaados) > 0){
-    $empleaados = mysqli_fetch_all($sqlEmpleaados,MYSQLI_ASSOC);
-    echo json_encode($empleaados);
-}
-else{ echo json_encode([["success"=>0]]); 
 }
 
 

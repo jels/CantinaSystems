@@ -16,3 +16,14 @@ export interface bajaUser {
     id_user: number,
     estado_user: number
 }
+
+export interface LoginUser {
+    id_users: number,
+    user_rol: string,
+    user_pass: string,
+    user_name: string,
+    user_nombre: string,
+    user_apellido: string,
+    user_foto: string,
+    acronimoEntidad: string
+}

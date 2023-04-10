@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -31,7 +30,6 @@ export class AlmuerzosComponent {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-
   }
 
   applyFilter(event: Event) {

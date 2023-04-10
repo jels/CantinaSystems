@@ -22,11 +22,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
-
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -36,6 +36,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
   declarations: [],
   imports: [
     CommonModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -62,6 +63,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatCheckboxModule
   ],
   exports:[
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

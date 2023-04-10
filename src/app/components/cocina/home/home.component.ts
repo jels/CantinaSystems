@@ -2,6 +2,7 @@ import { OnInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AlmuerzosService } from 'src/app/services/almuerzos.service';
 
 @Component({
   selector: 'app-home',
@@ -10,36 +11,77 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class HomeComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'estado'];
-  //dataSource: MatTableDataSource<UserData>;
+  full: Boolean = true;
+  exitenAlmuerzos: Boolean = false;
+  pendientes: any;
 
-  //@ViewChild(MatPaginator) paginator!: MatPaginator;
-  //@ViewChild(MatSort) sort!: MatSort;
+  diaHoy = new Date().getDate();
+  mesActual = new Date().getMonth();
+  anhoActual = new Date().getFullYear();
+  fechaHoy = (this.diaHoy + 1) + "/" + (this.mesActual + 1) + "/" + this.anhoActual;
 
-  constructor() {
-   
+  listaAlmuerzos: any;
+
+  displayedColumns: string[] = ['numero', 'nombreCompleto', 'entidad', 'nivel', 'almuerzo', 'estado', 'settings'];
+  dataSource: MatTableDataSource<any>;
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private _almuerzosService: AlmuerzosService) {
+    this.dataSource = new MatTableDataSource();
   }
 
-  ngOnInit() {
-   // this.dataSource.paginator = this.paginator;
-   // this.dataSource.sort = this.sort;
+  ngOnInit(): void {
+    this.cargarAlmuerzosHoy(this.fechaHoy);
   }
 
-  elem=document.documentElement;
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
 
-  fullscreen(){
-    if(this.elem.requestFullscreen){
+  calcularAlmuerzosPendientes(fechaHoy: string) {
+    this._almuerzosService.getCantidadPendientesDiario(fechaHoy).subscribe(resp => { this.pendientes = resp; });
+  }
+
+  marcarEntregado(idAlmuerzoXdia: number) {
+    console.log(idAlmuerzoXdia);
+    this._almuerzosService.entregarAlmuerzoEstudiante(idAlmuerzoXdia).subscribe();
+    this.cargarAlmuerzosHoy(this.fechaHoy);
+    this.calcularAlmuerzosPendientes(this.fechaHoy);
+  }
+
+  cargarAlmuerzosHoy(fechaBuscada: string) {
+    this.calcularAlmuerzosPendientes(fechaBuscada);
+    this._almuerzosService.listarAlmuerzosDiariosCocina(fechaBuscada).subscribe(respuesta => {
+      console.log(respuesta);
+      this.listaAlmuerzos = respuesta;
+      this.dataSource = new MatTableDataSource(this.listaAlmuerzos);
+      if (this.listaAlmuerzos.length > 0) {
+        this.exitenAlmuerzos = true;
+      } else {
+        this.exitenAlmuerzos = false;
+      }
+      console.log(this.exitenAlmuerzos);
+    });
+  }
+
+
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  elem = document.documentElement;
+  fullscreen() {
+    if (this.elem.requestFullscreen) {
       this.elem.requestFullscreen();
+      this.full = false;
     }
   }
-
-  //applyFilter(event: Event) {
-  //  const filterValue = (event.target as HTMLInputElement).value;
-  //  this.dataSource.filter = filterValue.trim().toLowerCase();
-//
-  //  if (this.dataSource.paginator) {
-  //    this.dataSource.paginator.firstPage();
-  //  }
-  //}
-
+  close_fullscreen() {
+    document.exitFullscreen();
+    this.full = true;
+  }
 }

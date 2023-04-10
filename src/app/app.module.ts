@@ -8,6 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './components/shared/shared.module';
 
 import { LoginComponent } from './components/login/login.component';
+import { CocinaModule } from './components/cocina/cocina.module';
+import { DashboardModule } from './components/dashboard/dashboard.module';
+import { ComedorModule } from './components/comedor/comedor.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +21,10 @@ import { LoginComponent } from './components/login/login.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
-    
+    SharedModule,
+    CocinaModule,
+    DashboardModule,
+    ComedorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

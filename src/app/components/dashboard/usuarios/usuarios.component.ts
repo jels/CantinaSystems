@@ -29,7 +29,6 @@ export class UsuariosComponent implements OnInit {
 
   constructor(private _usuarioService: UsuarioService, private _snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource();
-    this.bUser
   }
 
   ngOnInit(): void {

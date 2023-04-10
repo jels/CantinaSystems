@@ -25,10 +25,9 @@ export class NewAlmuerzoComponent implements OnInit {
       nombre_almuerzo: ['', Validators.required],
       descripcion_almuerzo: ['', Validators.required]
     });
-
   }
+  
   ngOnInit(): void {
-
   }
 
   agregarAlmuerzo() {

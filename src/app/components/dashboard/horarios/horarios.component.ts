@@ -18,24 +18,7 @@ import { AlmuerzosService } from 'src/app/services/almuerzos.service';
 export class HorariosComponent implements OnInit {
 
   mesActual: string = "";
-  colegios: any[] = [
-    { idColegio: '1', nombreColegio: 'CADA' },
-    { idColegio: '2', nombreColegio: 'CERVANTES' },
-    { idColegio: '3', nombreColegio: 'VARIOS' }
-  ]
-  grados: any[] = [
-    { idGrado: '1', nombreGrado: 'Pre-Jardin' },
-    { idGrado: '2', nombreGrado: 'Jardin' },
-    { idGrado: '3', nombreGrado: 'Pre-Escolar' },
-    { idGrado: '4', nombreGrado: '1er Grado' },
-    { idGrado: '5', nombreGrado: '2do Grado' },
-    { idGrado: '6', nombreGrado: '3er Grado' },
-    { idGrado: '7', nombreGrado: '4to Grado' },
-    { idGrado: '8', nombreGrado: '5to Grado' },
-    { idGrado: '9', nombreGrado: '6to Grado' },
-
-  ]
-
+  
   listAlmuerzo: any;
 
   displayedColumns: string[] = ['dia_completo_almuerzo', 'nombre_almuerzo', 'estado', 'eliminar'];

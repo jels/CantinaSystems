@@ -57,7 +57,6 @@ const routes: Routes = [
       {
         path: 'menu', component: MenuMensualComponent
       }
-
     ]
   }
 ];
