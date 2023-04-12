@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
 })
-export class InicioComponent {
+export class InicioComponent implements OnInit {
 
   almuerzos: any[] = [
     { idAlmuerzo: '1', nombreAlmuerzo: 'SuperAdmin' },
@@ -17,18 +18,17 @@ export class InicioComponent {
   ]
   selected = 'None';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-
-
-
-
-
+  ngOnInit() {
+    if (localStorage.getItem('rol') != 'admin') {
+      this.router.navigate(['login']);
+    }
+  }
 
 
 
   step = 0;
-
   setStep(index: number) {
     this.step = index;
   }

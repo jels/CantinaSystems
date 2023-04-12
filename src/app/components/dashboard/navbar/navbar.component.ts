@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 import { MenuService } from 'src/app/services/menu.service';
 
@@ -9,18 +10,23 @@ import { MenuService } from 'src/app/services/menu.service';
 })
 export class NavbarComponent implements OnInit {
 
-  menu: Menu[]= [];
+  menu: Menu[] = [];
 
-  constructor(private _menuService: MenuService){}
+  constructor(private _menuService: MenuService, private router: Router) { }
 
   ngOnInit(): void {
-      this.cargarMenu();
+    this.cargarMenu();
   }
 
-  cargarMenu(){
+  cargarMenu() {
     this._menuService.getMenu().subscribe(data => {
-      this.menu= data;
+      this.menu = data;
     })
+  }
+
+  exit() {
+    localStorage.clear()
+    this.router.navigate(['login']);
   }
 
 }

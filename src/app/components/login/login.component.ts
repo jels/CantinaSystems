@@ -13,11 +13,6 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
 
-  loginUser!: any;
-
-  existeUser: number = 0;
-  idUsuario: number = 0;
-
   constructor(private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private router: Router,
@@ -30,38 +25,42 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    localStorage.clear();
   }
 
   ingresar() {
-    console.log(this.form);
+    console.log(localStorage.getItem('rol'));
     const usuario = this.form.value.usuario;
     const password = this.form.value.password;
+    this._userService.getExistUser(usuario, password).subscribe((respuesta: any[]) => {
+      console.log(respuesta[0]);
+      localStorage.setItem('idU', respuesta[0].id_users);
+      localStorage.setItem('rol', respuesta[0].user_rol);
+      localStorage.setItem('foto', respuesta[0].user_foto);
+      localStorage.setItem('nombreC', (respuesta[0].user_nombre) + ", " + (respuesta[0].user_apellido));
+      if (localStorage.getItem('rol') == 'admin') {
+        console.log(localStorage.getItem('rol'));
+        this.fakeLoading();
+        this.router.navigate(['dashboard']);
 
-    console.log(usuario, password);
+      } else {
+        this.error();
+        this.form.reset();
+      }
+    });
 
-    this._userService.getExistUser(usuario, password).subscribe(respuesta => {
-      this.loginUser = respuesta;
-      console.log(this.loginUser);
-    })
-    
 
-    if (usuario == 'admin' && password == 'admin123') {
-      this.fakeLoading();
-      this.router.navigate(['dashboard']);
+    //else if (usuario == 'jels' && password == '123') {
+    //  this.fakeLoading();
+    //  this.router.navigate(['comedor']);
+    //
+    //} else if (usuario == 'cocina' && password == '123') {
+    //  this.fakeLoading();
+    //  this.router.navigate(['cocina']);
 
-    } else if (usuario == 'jels' && password == '123') {
-      this.fakeLoading();
-      this.router.navigate(['comedor']);
+    //} 
 
-    } else if (usuario == 'cocina' && password == '123') {
-      this.fakeLoading();
-      this.router.navigate(['cocina']);
 
-    } else {
-      this.error();
-      this.form.reset();
-    }
   }
 
   error() {
@@ -76,6 +75,6 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
-    }, 1500);
+    }, 2500);
   }
 }

@@ -18,11 +18,11 @@ export class UsuarioService {
     return this.clientHttp.get(this.API + "?getAllUsers");
   }
 
-  getExistUser(userName: string, password: string) {
-    return this.clientHttp.get(this.API + "?existeUser=" + 1 + "&userName=" + userName + "&password=" + password);
+  getExistUser(userName: string, password: string) : Observable< any[]> {
+    return this.clientHttp.get<[]>(this.API + "?existeUser=" + 1 + "&userName=" + userName + "&password=" + password);
   }
 
-  getDatosUser(idUser: number) {
+  getDatosUser(idUser: number)  {
     return this.clientHttp.get(this.API + "?datosUser=" + idUser);
   }
 

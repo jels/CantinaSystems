@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   diaHoy = new Date().getDate();
   mesActual = new Date().getMonth();
   anhoActual = new Date().getFullYear();
-  fechaHoy = (this.diaHoy + 1) + "/" + (this.mesActual + 1) + "/" + this.anhoActual;
+  fechaHoy = (this.diaHoy) + "/" + (this.mesActual + 1) + "/" + this.anhoActual;
 
   listaAlmuerzos: any;
 
