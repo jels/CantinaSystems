@@ -1,4 +1,4 @@
-<div class="container2">
+<div class="container-2">
     <mat-toolbar>
         <span>Horarios</span>
         <span class="example-spacer"></span>
@@ -8,7 +8,7 @@
     </mat-toolbar>
 </div>
 
-<div class="container2">
+<div class="container-2">
     <div class="mat-elevation-z8">
         <h1 style="text-align: center; padding-top: 10px;">{{mesActual}}</h1>
         <div class="text-center">
@@ -17,7 +17,7 @@
                     <h2>Lista de almuerzos mensuales</h2>
                     <div *ngIf="listAlmuerzo.length > 0">
                         <div class="mat-elevation-z8"
-                            style="margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
+                            style="margin-bottom: 10px; margin-left: 10px;">
                             <mat-form-field>
                                 <mat-label>Filtro</mat-label>
                                 <input matInput (keyup)="applyFilter($event)" placeholder="Escriba dos o mas letras"
@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-sm-5">
                     <h2>Insertar un menu para el mes</h2>
-                    <div class="mat-elevation-z8" style="margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
+                    <div class="mat-elevation-z8" style="margin-bottom: 10px; margin-right: 10px;">
                         <form [formGroup]="form" (ngSubmit)="agregarPlatoMensual()">
                             <mat-grid-list cols="4" rowHeight="75px">
                                 <mat-grid-tile [colspan]="2" [rowspan]="1">

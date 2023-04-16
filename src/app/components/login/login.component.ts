@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('rol', respuesta[0].user_rol);
       localStorage.setItem('foto', respuesta[0].user_foto);
       localStorage.setItem('nombreC', (respuesta[0].user_nombre) + ", " + (respuesta[0].user_apellido));
+
       if (localStorage.getItem('rol') == 'admin') {
         console.log(localStorage.getItem('rol'));
         this.fakeLoading();
@@ -57,7 +58,6 @@ export class LoginComponent implements OnInit {
         this.form.reset();
       }
     });
-
   }
 
   error() {
