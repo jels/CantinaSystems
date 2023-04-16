@@ -43,23 +43,20 @@ export class LoginComponent implements OnInit {
         this.fakeLoading();
         this.router.navigate(['dashboard']);
 
+      } else if (localStorage.getItem('rol') == 'user') {
+        console.log(localStorage.getItem('rol'));
+        this.fakeLoading();
+        this.router.navigate(['comedor']);
+
+      } else if (localStorage.getItem('rol') == 'cocina') {
+        console.log(localStorage.getItem('rol'));
+        this.fakeLoading();
+        this.router.navigate(['cocina']);
       } else {
         this.error();
         this.form.reset();
       }
     });
-
-
-    //else if (usuario == 'jels' && password == '123') {
-    //  this.fakeLoading();
-    //  this.router.navigate(['comedor']);
-    //
-    //} else if (usuario == 'cocina' && password == '123') {
-    //  this.fakeLoading();
-    //  this.router.navigate(['cocina']);
-
-    //} 
-
 
   }
 

@@ -36,7 +36,7 @@
                                     </mat-form-field>
                                     <div>
                                         <button mat-button
-                                            (click)="listaDiariaAlmuerzo(10,almuerzosPorDiaForm.value.firstCtrl.getDay(),almuerzosPorDiaForm.value.firstCtrl.getMonth(),almuerzosPorDiaForm.value.firstCtrl.getFullYear(),almuerzosPorDiaForm.value.firstCtrl.getDate())"
+                                            (click)="listaDiariaAlmuerzo(almuerzosPorDiaForm.value.firstCtrl.getDay(),almuerzosPorDiaForm.value.firstCtrl.getMonth(),almuerzosPorDiaForm.value.firstCtrl.getFullYear(),almuerzosPorDiaForm.value.firstCtrl.getDate())"
                                             matStepperNext>Siguiente</button>
                                     </div>
                                 </mat-step>
@@ -78,7 +78,7 @@
                                     <br>
                                     <div>
                                         <button
-                                            (click)="agregarAlmuerzoDiario(10,almuerzosPorDiaForm.value.firstCtrl,almuerzosPorDiaForm.value.secondCtrl,almuerzosPorDiaForm.value.sopa,almuerzosPorDiaForm.value.ensalada )"
+                                            (click)="agregarAlmuerzoDiario(almuerzosPorDiaForm.value.firstCtrl,almuerzosPorDiaForm.value.secondCtrl,almuerzosPorDiaForm.value.sopa,almuerzosPorDiaForm.value.ensalada )"
                                             [disabled]="almuerzosPorDiaForm.invalid" mat-raised-button color="primary"
                                             style="margin-bottom: 20px;">Guardar
                                             Cambios</button>

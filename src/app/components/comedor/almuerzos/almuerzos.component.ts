@@ -16,6 +16,7 @@ const DIAS: string[] = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'V
 })
 export class AlmuerzosComponent implements AfterViewInit {
 
+  idUser: number = Number(localStorage.getItem('idU'));
   saldo: any;
   foods: any;
   listaAlmuerzosDiariosUsr: any;
@@ -67,8 +68,8 @@ export class AlmuerzosComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.mesNombre;
-    this.cargarAlmuerzosPorUsuario(10);
-    this.calcularSaldoActual(10, this.mesActual + 1, this.anhoActual);
+    this.cargarAlmuerzosPorUsuario();
+    this.calcularSaldoActual(this.mesActual + 1, this.anhoActual);
   }
 
   applyFilter(event: Event) {
@@ -80,7 +81,7 @@ export class AlmuerzosComponent implements AfterViewInit {
   }
 
   //  this.diaCompleto = (fechaSeleccionada.getDate() + "/" + (fechaSeleccionada.getMonth() + 1) + "/" + fechaSeleccionada.getFullYear());
-  listaDiariaAlmuerzo(idUser: number, dia: any, mes: any, anho: any, diaSeleccionado: any) {
+  listaDiariaAlmuerzo(dia: any, mes: any, anho: any, diaSeleccionado: any) {
     this.elegirPlato = true;
     this.diaCompleto = (diaSeleccionado + "/" + (mes + 1) + "/" + anho);
     console.log(this.diaCompleto);
@@ -88,7 +89,7 @@ export class AlmuerzosComponent implements AfterViewInit {
       this.foods = respuesta;
       console.log(respuesta);
     });
-    this._almuerzos.existeAlmuerzoMensualUsr(10, this.diaCompleto).subscribe(resp => {
+    this._almuerzos.existeAlmuerzoMensualUsr(this.idUser, this.diaCompleto).subscribe(resp => {
       console.log(resp);
       if (resp) {
         this.existe = true;
@@ -98,7 +99,7 @@ export class AlmuerzosComponent implements AfterViewInit {
     });
   }
 
-  agregarAlmuerzoDiario(idUser: number, fecha: any, idAlmuerzo: number, opcionSopa: any, opcionEnsalada: any) {
+  agregarAlmuerzoDiario(fecha: any, idAlmuerzo: number, opcionSopa: any, opcionEnsalada: any) {
     this.diaNombre = DIAS[fecha.getDay()];
     this.diaNumero = fecha.getDate();
     this.mes = fecha.getMonth();
@@ -107,10 +108,10 @@ export class AlmuerzosComponent implements AfterViewInit {
     this.fechaExtendida = (DIAS[fecha.getDay()] + ", " + fecha.getDate() + " de " + MESES[this.mes] + " de " + this.anho);
     console.log("Este es Fecha Completa: " + this.fechaCompleta);
     console.log("Este es Fecha Extendida: " + this.fechaExtendida);
-    let myNumber: number = +idAlmuerzo;
+    //let myNumber: number = Number(idAlmuerzo);
     const almuerzosDiarios = {
-      idUser: idUser,
-      idAlmuerzo: myNumber,
+      idUser: this.idUser,
+      idAlmuerzo: Number(idAlmuerzo),
       fechaCompleta: this.fechaExtendida,
       fechaAlmuerzo: this.fechaCompleta,
       dia: this.diaNumero,
@@ -137,13 +138,14 @@ export class AlmuerzosComponent implements AfterViewInit {
         verticalPosition: 'bottom'
       });
       this.almuerzosPorDiaForm.reset();
-      location.reload();
+      this.cargarAlmuerzosPorUsuario();
+      this.calcularSaldoActual(this.mesActual + 1, this.anho);
     }
   }
 
-  cargarAlmuerzosPorUsuario(idUsuario: number) {
+  cargarAlmuerzosPorUsuario() {
     console.log(this.mesActual);
-    this._almuerzos.getAllAlmuersosUser(idUsuario, this.mesActual + 1).subscribe(respuesta => {
+    this._almuerzos.getAllAlmuersosUser(this.idUser, this.mesActual + 1).subscribe(respuesta => {
       this.listaAlmuerzosDiariosUsr = respuesta;
       this.dataSource = new MatTableDataSource(this.listaAlmuerzosDiariosUsr);
     });
@@ -156,14 +158,13 @@ export class AlmuerzosComponent implements AfterViewInit {
       horizontalPosition: 'center',
       verticalPosition: 'bottom'
     });
-    this.cargarAlmuerzosPorUsuario(10);
-    this.calcularSaldoActual(10,this.mesActual+1, this.anho);
-    location.reload();
+    this.cargarAlmuerzosPorUsuario();
+    this.calcularSaldoActual(this.mesActual + 1, this.anho);
   }
 
-  calcularSaldoActual(idUser: number, mes: number, ano: number) {
-    this._almuerzos.contarCantidadAlmuerzoUserMes(idUser, mes, ano).subscribe(respuesta => {
-      this.saldo = Number(respuesta) * 12 + ".000 Gs";
+  calcularSaldoActual(mes: number, ano: number) {
+    this._almuerzos.contarCantidadAlmuerzoUserMes(this.idUser, mes, ano).subscribe(respuesta => {
+      this.saldo = Number(respuesta) * 16 + ".000 Gs";
       console.log(respuesta);
     });
   }

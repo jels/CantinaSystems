@@ -11,7 +11,7 @@ $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
 // Consulta obtiene los almuerzos que estan disponibles en el dia seleccionado por el usuario
 if (isset($_GET["almuerzosDiarios"])){
-    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT a.id_almuerzo, a.nombre_almuerzo FROM lista_de_almuerzos_mensuales l, almuerzo a WHERE a.id_almuerzo=l.id_almuerzo AND l.estado_almuerzo_mensual=1 AND l.fechaCompleta=".$_GET["almuerzosDiarios"]);
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT a.id_almuerzo, a.nombre_almuerzo FROM lista_de_almuerzos_mensuales l, almuerzo a WHERE a.id_almuerzo=l.id_almuerzo AND l.fechaCompleta=".$_GET["almuerzosDiarios"]);
     if(mysqli_num_rows($sqlAlmuerzos) > 0){
         $almuerzosDiarios = mysqli_fetch_all($sqlAlmuerzos,MYSQLI_ASSOC);
         echo json_encode($almuerzosDiarios);
@@ -22,7 +22,7 @@ if (isset($_GET["almuerzosDiarios"])){
 
 // Consulta los almuerzos que ya estan en el sistema para cada Mes ya sean los activos como los inactivos...
 if (isset($_GET["almuerzosMensuales"])){
-    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT l.id_lista_de_almuerzos_mensuales, a.id_almuerzo, a.nombre_almuerzo, l.dia_completo_almuerzo, l.estado_almuerzo_mensual FROM lista_de_almuerzos_mensuales l, almuerzo a WHERE a.id_almuerzo=l.id_almuerzo AND l.mes_lista_almuerzo=".$_GET["almuerzosMensuales"]." ORDER BY l.dia_lista_almuerzo");
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT l.id_lista_de_almuerzos_mensuales, a.id_almuerzo, a.nombre_almuerzo, l.dia_completo_almuerzo FROM lista_de_almuerzos_mensuales l, almuerzo a WHERE a.id_almuerzo=l.id_almuerzo AND l.mes_lista_almuerzo=".$_GET["almuerzosMensuales"]." ORDER BY l.dia_lista_almuerzo;");
     if(mysqli_num_rows($sqlAlmuerzos) > 0){
         $almuerzosDiarios = mysqli_fetch_all($sqlAlmuerzos,MYSQLI_ASSOC);
         echo json_encode($almuerzosDiarios);
@@ -128,7 +128,7 @@ if(isset($_GET["insertarMenuMensual"])){
     $ano_lista_almuerzo=$data->ano_lista_almuerzo;
     $fechaCompleta=$data->fechaCompleta;
     $dia_completo_almuerzo=$data->dia_completo_almuerzo;
-    $sqlAlmuerzos = mysqli_query($conexionBD,"INSERT INTO lista_de_almuerzos_mensuales(id_lista_de_almuerzos_mensuales, id_almuerzo, mes_lista_almuerzo, dia_lista_almuerzo, ano_lista_almuerzo, fechaCompleta, dia_completo_almuerzo, estado_almuerzo_mensual) VALUES (null,$id_almuerzo,$mes_lista_almuerzo,$dia_lista_almuerzo,$ano_lista_almuerzo,'$fechaCompleta','$dia_completo_almuerzo',1);");
+    $sqlAlmuerzos = mysqli_query($conexionBD,"INSERT INTO lista_de_almuerzos_mensuales(id_lista_de_almuerzos_mensuales, id_almuerzo, mes_lista_almuerzo, dia_lista_almuerzo, ano_lista_almuerzo, fechaCompleta, dia_completo_almuerzo) VALUES (null,$id_almuerzo,$mes_lista_almuerzo,$dia_lista_almuerzo,$ano_lista_almuerzo,'$fechaCompleta','$dia_completo_almuerzo');");
     echo json_encode(["success"=>1]);
     exit();
 }

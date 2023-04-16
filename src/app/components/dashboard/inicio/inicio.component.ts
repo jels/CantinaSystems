@@ -27,7 +27,7 @@ export class InicioComponent implements OnInit {
   }
 
 
-
+  
   step = 0;
   setStep(index: number) {
     this.step = index;
@@ -40,7 +40,5 @@ export class InicioComponent implements OnInit {
   prevStep() {
     this.step--;
   }
-
-
 
 }
