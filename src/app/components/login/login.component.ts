@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('idU', respuesta[0].id_users);
       localStorage.setItem('rol', respuesta[0].user_rol);
       localStorage.setItem('foto', respuesta[0].user_foto);
-      localStorage.setItem('nombreC', (respuesta[0].user_nombre) + ", " + (respuesta[0].user_apellido));
+      localStorage.setItem('nombreC', (respuesta[0].user_nombre) + " " + (respuesta[0].user_apellido));
 
       if (localStorage.getItem('rol') == 'admin') {
         console.log(localStorage.getItem('rol'));
