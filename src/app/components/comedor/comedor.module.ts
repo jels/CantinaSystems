@@ -11,6 +11,7 @@ import { PagosComponent } from './pagos/pagos.component';
 import { AlmuerzosComponent } from './almuerzos/almuerzos.component';
 import { UserComponent } from './user/user.component';
 import { HistorialComponent } from './historial/historial.component';
+import { NewPagoComponent } from './pagos/new-pago/new-pago.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HistorialComponent } from './historial/historial.component';
     PagosComponent,
     AlmuerzosComponent,
     UserComponent,
-    HistorialComponent
+    HistorialComponent,
+    NewPagoComponent
   ],
   imports: [
     CommonModule,

@@ -9,24 +9,27 @@ import { HistorialService } from 'src/app/services/historial.service';
 @Component({
   selector: 'app-historial',
   templateUrl: './historial.component.html',
-  styleUrls: ['./historial.component.css']
+  styleUrls: ['./historial.component.css'],
 })
 export class HistorialComponent implements OnInit {
   listHistorial: Historial[] = [];
-  
-  displayedColumns: string[] = ['anho','mes', 'total'];
+
+  displayedColumns: string[] = ['anho', 'mes', 'almuerzos', 'pagos'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _historialService: HistorialService, private _snackBar: MatSnackBar){}
+  constructor(
+    private _historialService: HistorialService,
+    private _snackBar: MatSnackBar
+  ) {}
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.cargarHistorial();
   }
 
-  cargarHistorial(){
+  cargarHistorial() {
     this.listHistorial = this._historialService.getHistorial();
     this.dataSource = new MatTableDataSource(this.listHistorial);
   }
@@ -34,7 +37,6 @@ export class HistorialComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   }
 
   applyFilter(event: Event) {

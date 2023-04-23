@@ -25,9 +25,15 @@
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="total">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Totales </th>
-                <td mat-cell *matCellDef="let element"> {{element.total}} <span style="font-weight: bold;">Gs</span>
+            <ng-container matColumnDef="almuerzos">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Almuerzos </th>
+                <td mat-cell *matCellDef="let element"> {{element.almuerzos}} <span style="font-weight: bold;">Gs</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="pagos">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Pagos </th>
+                <td mat-cell *matCellDef="let element"> {{element.pagos}} <span style="font-weight: bold;">Gs</span>
                 </td>
             </ng-container>
 

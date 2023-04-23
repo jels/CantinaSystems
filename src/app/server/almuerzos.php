@@ -44,7 +44,7 @@ if (isset($_GET["listAlmuerzos"])){
 
 // Lista de los almuerzos que ya estan en el sistema sin importar su estado...
 if (isset($_GET["almuerzosUserMensual"])){
-    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT ax.idalmuerzoxdia, a.nombre_almuerzo, ax.fecha_completa_almuerzo, ax.estado_ensalada, ax.estado_sopa, ax.estadoAlmuerzoEstudiante FROM almuerzo a, almuerzoxdia ax, users u WHERE a.id_almuerzo=ax.id_almuerzo AND u.id_users=ax.id_users AND ax.mes_almuerzo=".$_GET["mes"]." AND u.id_users=".$_GET["almuerzosUserMensual"]." ORDER BY ax.dia_almuerzo ASC;");
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT ax.idalmuerzoxdia, a.nombre_almuerzo, ax.fecha_completa_almuerzo, ax.estado_ensalada, ax.estado_sopa, ax.estadoAlmuerzoEstudiante, ax.dia_almuerzo FROM almuerzo a, almuerzoxdia ax, users u WHERE a.id_almuerzo=ax.id_almuerzo AND u.id_users=ax.id_users AND ax.mes_almuerzo=".$_GET["mes"]." AND u.id_users=".$_GET["almuerzosUserMensual"]." ORDER BY ax.dia_almuerzo ASC;");
     if(mysqli_num_rows($sqlAlmuerzos) > 0){
         $almuerzosDiarios = mysqli_fetch_all($sqlAlmuerzos,MYSQLI_ASSOC);
         echo json_encode($almuerzosDiarios);

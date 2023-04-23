@@ -2,23 +2,20 @@ import { Injectable } from '@angular/core';
 import { Historial } from '../interfaces/historial';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HistorialService {
-
   listHistorial: Historial[] = [
-    {anho: "2022", mes: 'Diciembre', total: '250.000'},
-    {anho: "2023", mes: 'Enero', total: '250.000'},
-    {anho: "2023", mes: 'Febrero', total: '250.000'},
-    {anho: "2023", mes: 'Marzo', total: '250.000'},
-    {anho: "2023", mes: 'Abril', total: '250.000'},
-    
+    { anho: '2022', mes: 'Diciembre', almuerzos: '272.000', pagos: '250.000' },
+    { anho: '2023', mes: 'Enero', almuerzos: '272.000', pagos: '250.000' },
+    { anho: '2023', mes: 'Febrero', almuerzos: '272.000', pagos: '250.000' },
+    { anho: '2023', mes: 'Marzo', almuerzos: '272.000', pagos: '250.000' },
+    { anho: '2023', mes: 'Abril', almuerzos: '272.000', pagos: '250.000' },
   ];
 
-  constructor() { }
+  constructor() {}
 
-  getHistorial(){
+  getHistorial() {
     return this.listHistorial.slice();
   }
 }
-

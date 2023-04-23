@@ -1,5 +1,6 @@
-export interface Historial{
-    anho: string,
-    mes: string,
-    total: string
+export interface Historial {
+  anho: string;
+  mes: string;
+  almuerzos: string;
+  pagos: string;
 }

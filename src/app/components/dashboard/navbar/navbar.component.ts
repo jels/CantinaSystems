@@ -6,27 +6,42 @@ import { MenuService } from 'src/app/services/menu.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  menu: Menu[] = [
+    {
+      nombre: 'Inicio',
+      redirect: '/dashboard',
+    },
+    {
+      nombre: 'Usuarios',
+      redirect: '/dashboard/usuarios',
+    },
+    {
+      nombre: 'Menús',
+      redirect: '/dashboard/menu',
+    },
+    {
+      nombre: 'Pagos',
+      redirect: '/dashboard/pagos',
+    },
+    {
+      nombre: 'Reportes',
+      redirect: '/dashboard/reportes',
+    },
+    {
+      nombre: 'Almuerzos',
+      redirect: '/dashboard/almuerzos',
+    },
+  ];
 
-  menu: Menu[] = [];
+  constructor(private _menuService: MenuService, private router: Router) {}
 
-  constructor(private _menuService: MenuService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.cargarMenu();
-  }
-
-  cargarMenu() {
-    this._menuService.getMenu().subscribe(data => {
-      this.menu = data;
-    })
-  }
+  ngOnInit(): void {}
 
   exit() {
-    localStorage.clear()
+    localStorage.clear();
     this.router.navigate(['login']);
   }
-
 }

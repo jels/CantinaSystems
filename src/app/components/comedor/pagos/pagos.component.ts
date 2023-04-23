@@ -9,24 +9,36 @@ import { PagosService } from 'src/app/services/pagos.service';
 @Component({
   selector: 'app-pagos',
   templateUrl: './pagos.component.html',
-  styleUrls: ['./pagos.component.css']
+  styleUrls: ['./pagos.component.css'],
 })
-export class PagosComponent implements OnInit{
+export class PagosComponent implements OnInit {
+  idUser: number = Number(localStorage.getItem('idU'));
+
   listPagos: Pagos[] = [];
-  
-  displayedColumns: string[] = ['anho','mes','dia','monto','foto'];
+
+  montoDeuda!: string;
+
+  displayedColumns: string[] = ['anho', 'mes', 'dia', 'monto', 'foto'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _pagosService: PagosService, private _snackBar: MatSnackBar){}
+  constructor(
+    private _pagosService: PagosService,
+    private _snackBar: MatSnackBar
+  ) {}
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.cargarPagos();
+    this.cargarDeudaTotal(this.idUser);
   }
 
-  cargarPagos(){
+  cargarDeudaTotal(idUsr: number) {
+    this.montoDeuda = '150.000' + ' Gs';
+  }
+
+  cargarPagos() {
     this.listPagos = this._pagosService.getPagos();
     this.dataSource = new MatTableDataSource(this.listPagos);
   }
@@ -34,7 +46,6 @@ export class PagosComponent implements OnInit{
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   }
 
   applyFilter(event: Event) {

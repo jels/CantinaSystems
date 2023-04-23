@@ -3,9 +3,9 @@
         <span>Pagos</span>
         <span class="example-spacer"></span>
         <span>Deuda Actual= </span>
-        <span style="color: red; padding-left: 10px;">150.000 Gs</span>
+        <span style="color: red; padding-left: 10px;">{{montoDeuda}}</span>
         <span style="padding-left: 25px;"></span>
-        <button mat-raised-button color="primary">Realizar un Pago</button>
+        <button mat-raised-button color="primary" routerLink="/comedor/pagos/new">Realizar un Pago</button>
     </mat-toolbar>
 
     <div class="mat-elevation-z8" *ngIf="listPagos.length > 0">
