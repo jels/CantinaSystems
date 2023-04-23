@@ -9,25 +9,38 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent implements OnInit {
-
   listUsuarios: any;
   estado: number = 0;
 
   bUser: bajaUser = {
     estado_user: 0,
-    id_user: 0
+    id_user: 0,
   };
 
-  displayedColumns: string[] = ['id_users', 'user_name', 'user_pass', 'user_nombre', 'user_apellido', 'acronimoEntidad', 'acronimoNivel', 'cicloNivel', 'user_estado', 'acciones'];
+  displayedColumns: string[] = [
+    'id_users',
+    'user_name',
+    'user_pass',
+    'user_nombre',
+    'user_apellido',
+    'acronimoEntidad',
+    'acronimoNivel',
+    'cicloNivel',
+    'user_estado',
+    'acciones',
+  ];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _usuarioService: UsuarioService, private _snackBar: MatSnackBar) {
+  constructor(
+    private _usuarioService: UsuarioService,
+    private _snackBar: MatSnackBar
+  ) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -38,7 +51,6 @@ export class UsuariosComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   }
 
   applyFilter(event: Event) {
@@ -47,7 +59,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   cargarUsuarios() {
-    this._usuarioService.getAllUsers().subscribe(respuesta => {
+    this._usuarioService.getAllUsers().subscribe((respuesta) => {
       console.log(respuesta);
       this.listUsuarios = respuesta;
       this.dataSource = new MatTableDataSource(this.listUsuarios);
@@ -63,14 +75,15 @@ export class UsuariosComponent implements OnInit {
     this.bUser.estado_user = this.estado;
     this.bUser.id_user = Number(index);
     console.log(this.bUser);
-    this._usuarioService.darDeBajaUsuario(this.bUser).subscribe(data => { console.log(data); });
+    this._usuarioService.darDeBajaUsuario(this.bUser).subscribe((data) => {
+      console.log(data);
+    });
     this._snackBar.open('El usuario fue dado de baja correctamente', '', {
       duration: 5000,
       horizontalPosition: 'center',
-      verticalPosition: 'bottom'
+      verticalPosition: 'bottom',
     });
     location.reload();
-
   }
 
   editarUsuario(index: number) {
@@ -80,5 +93,4 @@ export class UsuariosComponent implements OnInit {
   verDatos(index: number) {
     console.log(index);
   }
-
 }

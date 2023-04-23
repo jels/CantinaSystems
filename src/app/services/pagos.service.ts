@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class PagosService {
-  API: string = 'http://localhost/cantinasystems/src/app/server/subirPago.php';
+  API: string = 'http://localhost/cantinasystems/src/app/server/pagos.php';
 
   listPagos: Pagos[] = [
     {
@@ -48,6 +48,10 @@ export class PagosService {
   ];
 
   constructor(private http: HttpClient) {}
+
+  getAllPagos() {
+    return this.http.get(this.API + '?consultarPagos');
+  }
 
   getPagos() {
     return this.listPagos.slice();
