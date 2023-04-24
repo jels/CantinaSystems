@@ -51,6 +51,6 @@ export class NewPagoComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
-    //this.router.navigate(['/comedor/pagos']);
+    this.router.navigate(['/comedor/pagos']);
   }
 }

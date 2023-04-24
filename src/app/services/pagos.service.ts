@@ -61,6 +61,13 @@ export class PagosService {
     return this.http.post(this.API + '?nuevoPago', pago);
   }
 
+  getDeudaUser(idUser: number) {
+    return this.http.get(this.API + '?deudaTotalUsr=' + idUser);
+  }
+  getPagosUser(idUser: number) {
+    return this.http.get(this.API + '?pagosTotalesUser=' + idUser);
+  }
+
   //subirImagen(datos: any): Observable<any> {
   //  return this.http.post(this.URL, datos);
   //}

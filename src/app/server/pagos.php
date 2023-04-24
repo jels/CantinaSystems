@@ -21,4 +21,16 @@ if (isset($_GET["consultarPagos"])){
     else{  echo json_encode(["success"=>0]); }
 }
 
+if (isset($_GET["deudaTotalUsr"])){
+    $sqlPagos = mysqli_query($conexionBD,"SELECT COUNT(idalmuerzoxdia)*16000 AS 'deuda' FROM almuerzoxdia WHERE id_users=".$_GET["deudaTotalUsr"]);
+    $deuda = mysqli_fetch_array($sqlPagos);
+    echo json_encode($deuda['deuda']);
+}
+
+if (isset($_GET["pagosTotalesUser"])){
+    $sqlPagos = mysqli_query($conexionBD,"SELECT SUM(monto_pago) AS 'totales' FROM pagos WHERE id_users=".$_GET["pagosTotalesUser"]);
+    $pago = mysqli_fetch_array($sqlPagos);
+    echo json_encode($pago["totales"]);
+}
+
 ?>
