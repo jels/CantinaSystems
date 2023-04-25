@@ -261,7 +261,7 @@ export class AlmuerzosComponent implements AfterViewInit {
     this._almuerzos
       .contarCantidadAlmuerzoUserMes(this.idUser, mes, ano)
       .subscribe((respuesta) => {
-        this.saldo = Number(respuesta) * 16 + '.000 Gs';
+        this.saldo = Number(respuesta) * 16000;
         console.log(respuesta);
       });
   }

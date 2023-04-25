@@ -14,11 +14,12 @@ import { PagosService } from 'src/app/services/pagos.service';
 export class PagosComponent implements AfterViewInit {
   idUser: number = Number(localStorage.getItem('idU'));
 
-  listPagos: Pagos[] = [];
+  verImagen: string = '';
+  listPagos: any;
   deuda: any;
   pagos: any;
 
-  montoDeuda: any;
+  montoDeuda!: number;
 
   displayedColumns: string[] = ['anho', 'mes', 'dia', 'monto', 'foto'];
   dataSource: MatTableDataSource<any>;
@@ -34,39 +35,47 @@ export class PagosComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-    this.cargarPagos();
+    this.cargarPagos(this.idUser);
   }
 
   ngAfterViewInit() {
+    this.cargarPagos(this.idUser);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.cargarDeudaTotal(this.idUser);
-    this.cargarPagosTotal(this.idUser);
-    this.montoDeuda = this.pagos - this.deuda;
   }
 
   cargarDeudaTotal(idUsr: number) {
     this._pagosService.getDeudaUser(idUsr).subscribe((resp) => {
       this.deuda = Number(resp);
-      console.log(this.deuda);
+      this._pagosService.getPagosUser(idUsr).subscribe((resp2) => {
+        this.pagos = Number(resp2);
+        this.montoDeuda = this.pagos - this.deuda;
+        console.log(this.montoDeuda);
+      });
     });
   }
 
   cargarPagosTotal(idUsr: number) {
     this._pagosService.getPagosUser(idUsr).subscribe((resp) => {
       this.pagos = Number(resp);
-      console.log(this.pagos);
-      console.log(this.deuda);
     });
   }
 
-  cargarPagos() {
-    this.listPagos = this._pagosService.getPagos();
+  cargarPagos(idUser: number) {
+    this._pagosService.getPagosUsr(idUser).subscribe((resp) => {
+      console.log(resp);
+      this.listPagos = resp;
+    });
     this.dataSource = new MatTableDataSource(this.listPagos);
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openDialog(foto_pago: string) {
+    this.verImagen = foto_pago;
   }
 }

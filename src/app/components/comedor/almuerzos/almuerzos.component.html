@@ -12,7 +12,8 @@
             <span style="text-align: center; padding-top: 10px;">Mes: {{mesNombre}}</span>
             <span class="example-spacer"></span>
             <span style="text-align: center; padding-top: 10px;">Saldo del mes de {{mesNombre}} </span>
-            <span style="text-align: center; padding-top: 10px; padding-left: 10px; color:red;"> {{saldo}} </span>
+            <span style="text-align: center; padding-top: 10px; padding-left: 10px; color:red;"> {{saldo |currency:'Gs
+                '}} </span>
             <span class="example-spacer"></span>
         </mat-toolbar>
         <div class="text-center">
@@ -157,7 +158,8 @@
 
                             <!-- Row shown when there is no matching data. -->
                             <tr class="mat-row" *matNoDataRow>
-                                <td class="mat-cell" colspan="4">No hay ningun almuerzo seleccionado para mostrar...</td>
+                                <td class="mat-cell" colspan="4">No hay ningun almuerzo seleccionado para mostrar...
+                                </td>
                             </tr>
                         </table>
                     </div>

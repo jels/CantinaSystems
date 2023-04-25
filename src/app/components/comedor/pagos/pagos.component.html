@@ -1,9 +1,18 @@
-<div class="container">
+<div class="container-2">
     <mat-toolbar>
         <span>Pagos</span>
         <span class="example-spacer"></span>
-        <span>Deuda Actual= </span>
-        <span style="color: red; padding-left: 10px;">{{montoDeuda}}</span>
+        <span *ngIf="montoDeuda<0">Deuda Actual=
+            <span style="color: red; padding-left: 10px;">
+                {{(montoDeuda*-1)|currency:'Gs '}}
+
+            </span>
+        </span>
+        <span *ngIf="montoDeuda>=0">Saldo a Favor=
+            <span style="color: green; padding-left: 10px;">
+                {{montoDeuda|currency:'Gs '}}
+            </span>
+        </span>
         <span style="padding-left: 25px;"></span>
         <button mat-raised-button color="primary" routerLink="/comedor/pagos/new">Realizar un Pago</button>
     </mat-toolbar>
@@ -20,32 +29,33 @@
 
             <!-- Position Column -->
             <ng-container matColumnDef="anho">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
-                <td mat-cell *matCellDef="let element"> {{element.anho}} </td>
+                <th mat-header-cell *matHeaderCellDef> Año </th>
+                <td mat-cell *matCellDef="let element"> {{element.ano_pago}} </td>
             </ng-container>
 
             <!-- Position Column -->
             <ng-container matColumnDef="mes">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mes </th>
-                <td mat-cell *matCellDef="let element"> {{element.mes}} </td>
+                <th mat-header-cell *matHeaderCellDef> Mes </th>
+                <td mat-cell *matCellDef="let element"> {{element.mes_pago}} </td>
             </ng-container>
 
             <!-- Position Column -->
             <ng-container matColumnDef="dia">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Dia </th>
-                <td mat-cell *matCellDef="let element"> {{element.dia}} </td>
+                <th mat-header-cell *matHeaderCellDef> Dia </th>
+                <td mat-cell *matCellDef="let element"> {{element.dia_pago}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="monto">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Monto </th>
-                <td mat-cell *matCellDef="let element"> {{element.monto}} <span style="font-weight: bold;">Gs</span>
+                <th mat-header-cell *matHeaderCellDef> Monto </th>
+                <td mat-cell *matCellDef="let element"> {{element.monto_pago|currency:'Gs '}}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="foto">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
-                <td mat-cell *matCellDef="let element"> <img src="{{element.foto}}" style="width: 25px;"></td>
+                <th mat-header-cell *matHeaderCellDef> Foto </th>
+                <td mat-cell *matCellDef="let element"> <img src="{{element.foto_pago}}" style="width: 25px;"
+                        data-bs-toggle="modal" data-bs-target="#verPago" (click)="openDialog(element.foto_pago)"></td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -57,6 +67,23 @@
     <div class="mat-elevation-z8" *ngIf="listPagos.length == 0" style="text-align: center;">
         <h2>No hay Historial que mostrar</h2>
     </div>
-    <!-- Modal -->
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="verPago" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Imagen del Pago Seleccionado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img [src]="verImagen" alt="ver imagen guardada" style="width: 750px;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

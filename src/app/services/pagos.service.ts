@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class PagosService {
   API: string = 'http://localhost/cantinasystems/src/app/server/pagos.php';
 
+  URL = 'http://localhost/cantinasystems/src/app/server/assets/';
+
   listPagos: Pagos[] = [
     {
       anho: '2022',
@@ -49,12 +51,19 @@ export class PagosService {
 
   constructor(private http: HttpClient) {}
 
+  uploadFile(archivo: any) {
+    return this.http.post(
+      `${this.URL}subirArchivo.php`,
+      JSON.stringify(archivo)
+    );
+  }
+
   getAllPagos() {
     return this.http.get(this.API + '?consultarPagos');
   }
 
-  getPagos() {
-    return this.listPagos.slice();
+  getPagosUsr(idUsr: number) {
+    return this.http.get(this.API + '?pagosXuser=' + idUsr);
   }
 
   setNewPago(pago: NuevoPago): Observable<any> {
@@ -64,6 +73,7 @@ export class PagosService {
   getDeudaUser(idUser: number) {
     return this.http.get(this.API + '?deudaTotalUsr=' + idUser);
   }
+
   getPagosUser(idUser: number) {
     return this.http.get(this.API + '?pagosTotalesUser=' + idUser);
   }

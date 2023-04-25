@@ -20,8 +20,11 @@ export class PagosComponent implements OnInit {
     'acronimoNivel',
     'fecha_pago',
     'monto_pago',
+    'foto_pago',
   ];
   dataSource: MatTableDataSource<any>;
+  verImagen: string = '';
+  montoImagen: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -53,5 +56,10 @@ export class PagosComponent implements OnInit {
       this.listPagos = respuesta;
       this.dataSource = new MatTableDataSource(this.listPagos);
     });
+  }
+
+  openDialog(ruta: string, monto: number) {
+    this.verImagen = ruta;
+    this.montoImagen = monto;
   }
 }

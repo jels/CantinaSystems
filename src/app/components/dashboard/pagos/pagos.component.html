@@ -52,6 +52,14 @@
                 <td mat-cell *matCellDef="let element"> {{element.monto_pago}} </td>
             </ng-container>
 
+            <!-- Weight Column -->
+            <ng-container matColumnDef="foto_pago">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
+                <td mat-cell *matCellDef="let element"> <img src="{{element.foto_pago}}" style="width: 25px;"
+                        data-bs-toggle="modal" data-bs-target="#verPago"
+                        (click)="openDialog(element.foto_pago, element.monto_pago)"></td>
+            </ng-container>
+
             <!--
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
@@ -80,4 +88,23 @@
     </div>
 
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="verPago" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Imagen del Pago Seleccionado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2>Monto pagado {{montoImagen| currency:'Gs '}}</h2>
+                <img [src]="verImagen" alt="ver imagen guardada" style="width: 750px;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

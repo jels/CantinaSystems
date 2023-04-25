@@ -18,8 +18,11 @@
                 <mat-grid-tile [colspan]="2" [rowspan]="1">
                     <div class="mb-3">
                         <label class="form-label">Elija una Foto</label>
-                        <input class="form-control" type="file" accept="image/*" formControlName="img_pago" required>
+                        <input class="form-control" type="file" accept="image/*" (change)="seleccionarArchivo($event)"
+                            formControlName="img_pago" required>
                     </div>
+                    <!--<label>Nombre archivo:</label>
+                    <input type="text" [(ngModel)]="archivo.nombre" name="file">-->
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="2" [rowspan]="2">
                     <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary"

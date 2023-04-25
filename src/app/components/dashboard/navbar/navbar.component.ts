@@ -27,10 +27,6 @@ export class NavbarComponent implements OnInit {
       redirect: '/dashboard/pagos',
     },
     {
-      nombre: 'Reportes',
-      redirect: '/dashboard/reportes',
-    },
-    {
       nombre: 'Almuerzos',
       redirect: '/dashboard/almuerzos',
     },
