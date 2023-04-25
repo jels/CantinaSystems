@@ -71,5 +71,15 @@ if (isset($_GET["listarpagosuser"])){
     else{  echo json_encode(["success"=>0]); }
 }
 
+//
+if (isset($_GET["eliminarPagoUsr"])){
+    $sqlAlmuerzos = mysqli_query($conexionBD,"DELETE FROM pagos WHERE id_pago=".$_GET["eliminarPagoUsr"]);
+    if($sqlAlmuerzos){
+        echo json_encode(["success"=>1]);
+        exit();
+    }
+    else{  echo json_encode(["success"=>0]); }
+}
+
 
 ?>

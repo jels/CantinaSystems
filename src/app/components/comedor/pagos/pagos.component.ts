@@ -21,7 +21,14 @@ export class PagosComponent implements AfterViewInit {
 
   montoDeuda!: number;
 
-  displayedColumns: string[] = ['anho', 'mes', 'dia', 'monto', 'foto'];
+  displayedColumns: string[] = [
+    'anho',
+    'mes',
+    'dia',
+    'monto',
+    'foto',
+    'eliminar',
+  ];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -66,8 +73,8 @@ export class PagosComponent implements AfterViewInit {
     this._pagosService.getPagosUsr(idUser).subscribe((resp) => {
       console.log(resp);
       this.listPagos = resp;
+      this.dataSource = new MatTableDataSource(this.listPagos);
     });
-    this.dataSource = new MatTableDataSource(this.listPagos);
   }
 
   applyFilter(event: Event) {
@@ -77,5 +84,16 @@ export class PagosComponent implements AfterViewInit {
 
   openDialog(foto_pago: string) {
     this.verImagen = foto_pago;
+  }
+
+  eliminarPago(idPago: number) {
+    console.log('id: ' + idPago);
+    this._pagosService
+      .eliminarPagoRealizadoUsr(idPago)
+      .subscribe((respuesta) => {
+        console.log(respuesta);
+        this.cargarPagos(this.idUser);
+        this.cargarDeudaTotal(this.idUser);
+      });
   }
 }

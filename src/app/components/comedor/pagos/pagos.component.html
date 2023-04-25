@@ -58,6 +58,16 @@
                         data-bs-toggle="modal" data-bs-target="#verPago" (click)="openDialog(element.foto_pago)"></td>
             </ng-container>
 
+            <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                <td mat-cell *matCellDef="let element">
+                    <a class="pointer" (click)="eliminarPago(element.id_pago)" style="color: #e15639;"
+                        matTooltip="Eliminar Pago">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>

@@ -78,6 +78,10 @@ export class PagosService {
     return this.http.get(this.API + '?pagosTotalesUser=' + idUser);
   }
 
+  eliminarPagoRealizadoUsr(idPago: number) {
+    return this.http.get(this.API + '?eliminarPagoUsr=' + idPago);
+  }
+
   //subirImagen(datos: any): Observable<any> {
   //  return this.http.post(this.URL, datos);
   //}
