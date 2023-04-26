@@ -24,15 +24,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'es-PY'},
-  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-PY' }],
   declarations: [],
   imports: [
     CommonModule,
@@ -60,9 +56,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatExpansionModule,
     MatListModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
-  exports:[
+  exports: [
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -87,7 +83,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatExpansionModule,
     MatListModule,
     MatStepperModule,
-    MatCheckboxModule
-  ]
+    MatCheckboxModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}
