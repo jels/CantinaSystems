@@ -13,10 +13,7 @@ import { DashboardModule } from './components/dashboard/dashboard.module';
 import { ComedorModule } from './components/comedor/comedor.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent
-  ],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,9 +21,9 @@ import { ComedorModule } from './components/comedor/comedor.module';
     SharedModule,
     CocinaModule,
     DashboardModule,
-    ComedorModule
+    ComedorModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

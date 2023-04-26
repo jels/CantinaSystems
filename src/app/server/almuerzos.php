@@ -42,6 +42,28 @@ if (isset($_GET["listAlmuerzos"])){
     else{  echo json_encode(["success"=>0]); }
 }
 
+//requiere 2 parametros, listAlmuerzosCount es para el mes y anho es para el año
+if (isset($_GET["listAlmuerzosCount"])){
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT a.id_almuerzo, axd.fecha_almuerzo, axd.fecha_completa_almuerzo, a.nombre_almuerzo, COUNT(a.id_almuerzo) AS 'cantidad_almuerzos' FROM almuerzoxdia axd, almuerzo a, users u WHERE u.id_users=axd.id_users AND a.id_almuerzo=axd.id_almuerzo AND axd.mes_almuerzo=".$_GET["listAlmuerzosCount"]." AND axd.ano_almuerzo=".$_GET["anho"]." GROUP BY axd.fecha_almuerzo, a.nombre_almuerzo ORDER BY axd.dia_almuerzo ASC;");
+    if(mysqli_num_rows($sqlAlmuerzos) > 0){
+        $almuerzosDiarios = mysqli_fetch_all($sqlAlmuerzos,MYSQLI_ASSOC);
+        echo json_encode($almuerzosDiarios);
+        exit();
+    }
+    else{  echo json_encode(["success"=>0]); }
+}
+
+//requiere 1 parametro, listAlmuerzosDiaCount es para la fecha
+if (isset($_GET["listAlmuerzosDiaCount"])){
+    $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT axd.fecha_almuerzo, axd.fecha_completa_almuerzo, a.nombre_almuerzo, e.acronimoEntidad, COUNT(axd.idalmuerzoxdia) AS 'cantidad_almuerzos' FROM almuerzoxdia axd, almuerzo a, users u, entidades e, niveles n WHERE a.id_almuerzo=axd.id_almuerzo AND u.id_users=axd.id_users AND e.idEntidad=u.idEntidad AND n.idNivel=u.idNivel AND axd.fecha_almuerzo='".$_GET["listAlmuerzosDiaCount"]."' GROUP BY e.idEntidad, a.nombre_almuerzo;");
+    if(mysqli_num_rows($sqlAlmuerzos) > 0){
+        $almuerzosDiarios = mysqli_fetch_all($sqlAlmuerzos,MYSQLI_ASSOC);
+        echo json_encode($almuerzosDiarios);
+        exit();
+    }
+    else{  echo json_encode(["success"=>0]); }
+}
+
 // Lista de los almuerzos que ya estan en el sistema sin importar su estado...
 if (isset($_GET["almuerzosUserMensual"])){
     $sqlAlmuerzos = mysqli_query($conexionBD,"SELECT ax.idalmuerzoxdia, a.nombre_almuerzo, ax.fecha_completa_almuerzo, ax.estado_ensalada, ax.estado_sopa, ax.estadoAlmuerzoEstudiante, ax.dia_almuerzo FROM almuerzo a, almuerzoxdia ax, users u WHERE a.id_almuerzo=ax.id_almuerzo AND u.id_users=ax.id_users AND ax.mes_almuerzo=".$_GET["mes"]." AND u.id_users=".$_GET["almuerzosUserMensual"]." ORDER BY ax.dia_almuerzo ASC;");

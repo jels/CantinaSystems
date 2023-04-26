@@ -30,6 +30,10 @@ export class NavbarComponent implements OnInit {
       nombre: 'Almuerzos',
       redirect: '/dashboard/almuerzos',
     },
+    {
+      nombre: 'Reportes',
+      redirect: '/dashboard/reportes',
+    },
   ];
 
   constructor(private _menuService: MenuService, private router: Router) {}

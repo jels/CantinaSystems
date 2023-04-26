@@ -22,3 +22,13 @@ FROM users u, entidades e, niveles n WHERE u.idEntidad=e.idEntidad AND u.idNivel
 /* Obtener los datos de los usuarios por entidades y niveles solo lo necesario de la BD */
 
 
+/* Obtiene los datos por el dia que se solicite */
+SELECT axd.fecha_almuerzo, axd.fecha_completa_almuerzo, 
+CONCAT(u.user_nombre," ",u.user_apellido) AS 'nombre_completo', e.acronimoEntidad, n.acronimoNivel, 
+n.cicloNivel, u.seccion_user, a.nombre_almuerzo, axd.estado_entregado 
+FROM almuerzoxdia axd, almuerzo a, users u, entidades e, niveles n 
+WHERE e.idEntidad=u.idEntidad AND n.idNivel=u.idNivel AND u.id_users=axd.id_users 
+AND a.id_almuerzo=axd.id_almuerzo AND axd.fecha_almuerzo='20/4/2023' ORDER BY e.acronimoEntidad ASC;
+
+
+

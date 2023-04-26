@@ -8,17 +8,15 @@ import { InicioComponent } from './inicio/inicio.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ReportesComponent } from './reportes/reportes.component';
-import { HorariosComponent } from './horarios/horarios.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { CrearUsuarioComponent } from './usuarios/crear-usuario/crear-usuario.component';
-import { NuevoMenudiarioComponent } from './horarios/nuevo-menudiario/nuevo-menudiario.component';
 import { EditarUsuarioComponent } from './usuarios/editar-usuario/editar-usuario.component';
 import { VerDatosComponent } from './usuarios/ver-datos/ver-datos.component';
 import { CargarDatosComponent } from './cargar-datos/cargar-datos.component';
 import { AlmuerzosComponent } from './almuerzos/almuerzos.component';
 import { NewAlmuerzoComponent } from './almuerzos/new-almuerzo/new-almuerzo.component';
 import { MenuMensualComponent } from './menu-mensual/menu-mensual.component';
-
+import { VerDiarioComponent } from './reportes/ver-diario/ver-diario.component';
 
 @NgModule({
   declarations: [
@@ -27,21 +25,16 @@ import { MenuMensualComponent } from './menu-mensual/menu-mensual.component';
     NavbarComponent,
     UsuariosComponent,
     ReportesComponent,
-    HorariosComponent,
     PagosComponent,
     CrearUsuarioComponent,
-    NuevoMenudiarioComponent,
     EditarUsuarioComponent,
     VerDatosComponent,
     CargarDatosComponent,
     AlmuerzosComponent,
     NewAlmuerzoComponent,
-    MenuMensualComponent
+    MenuMensualComponent,
+    VerDiarioComponent,
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    SharedModule
-  ]
+  imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })
-export class DashboardModule { }
+export class DashboardModule {}

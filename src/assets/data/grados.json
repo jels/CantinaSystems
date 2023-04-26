@@ -8,10 +8,6 @@
         "nombreGrado": "/dashboard/usuarios"
     },
     {
-        "idGrado": "Horarios",
-        "nombreGrado": "/dashboard/horarios"
-    },
-    {
         "idGrado": "Pagos",
         "nombreGrado": "/dashboard/pagos"
     },
