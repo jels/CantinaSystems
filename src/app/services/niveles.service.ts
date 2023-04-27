@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NivelesService {
-  
-  API: string='http://localhost/cantinasystems/src/app/server/niveles.php';
+  API: string = environment.apiURL + '/server/niveles.php';
 
-  constructor( private clientHttp: HttpClient ) { }
+  constructor(private clientHttp: HttpClient) {}
 
-  getNiveles(){
+  getNiveles() {
     return this.clientHttp.get(this.API);
   }
 }

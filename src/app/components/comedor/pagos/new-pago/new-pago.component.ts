@@ -70,7 +70,6 @@ export class NewPagoComponent implements OnInit {
 
   agregarPago() {
     console.log(this.form);
-
     console.log(this.archivo);
     this._pagoService.uploadFile(this.archivo).subscribe((datos: any) => {
       if (datos['resultado'] == 'OK') {

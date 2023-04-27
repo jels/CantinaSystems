@@ -6,7 +6,8 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // Conecta a la base de datos  con usuario, contraseña y nombre de la BD
-$servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "syscomedor";
+//$servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "syscomedor";
+$servidor = "sql569.main-hosting.eu"; $usuario = "u909736353_csystem"; $contrasenia = "Csystem.23"; $nombreBaseDatos = "u909736353_csystem";
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
 

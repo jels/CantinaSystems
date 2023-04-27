@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EntidadesService {
+  API: string = environment.apiURL + '/server/entidades.php';
 
-  API: string='http://localhost/cantinasystems/src/app/server/entidades.php';
+  constructor(private clientHttp: HttpClient) {}
 
-  constructor( private clientHttp: HttpClient ) { }
-
-  getEntidades(){
+  getEntidades() {
     return this.clientHttp.get(this.API);
   }
 }

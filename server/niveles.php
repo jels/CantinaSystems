@@ -6,7 +6,8 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // Conecta a la base de datos  con usuario, contraseña y nombre de la BD
-$servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "syscomedor";
+//$servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "syscomedor";
+$servidor = "sql569.main-hosting.eu"; $usuario = "u909736353_csystem"; $contrasenia = "Csystem.23"; $nombreBaseDatos = "u909736353_csystem";
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
 
@@ -55,7 +56,7 @@ if(isset($_GET["actualizar"])){
     exit();
 }
 // Consulta todos los registros de la tabla empleados
-$sqlEmpleaados = mysqli_query($conexionBD,"SELECT idEntidad, acronimoEntidad FROM entidades WHERE estadoEntidad=1;");
+$sqlEmpleaados = mysqli_query($conexionBD,"SELECT idNivel, acronimoNivel FROM `niveles` WHERE estadoNivel=1;");
 if(mysqli_num_rows($sqlEmpleaados) > 0){
     $empleaados = mysqli_fetch_all($sqlEmpleaados,MYSQLI_ASSOC);
     echo json_encode($empleaados);

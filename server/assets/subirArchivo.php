@@ -11,7 +11,7 @@ $nombreArchivo = $params->nombreArchivo;
 $archivo = $params->base64textString;
 $archivo = base64_decode($archivo);
 
-$filePath = $_SERVER['DOCUMENT_ROOT']."/cantinasystems/src/assets/img/pagos/".$nombreArchivo;
+$filePath = $_SERVER['DOCUMENT_ROOT']."/assets/img/pagos/".$nombreArchivo;
 file_put_contents($filePath, $archivo);
 
 ?>

@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AlmuerzoMensual, NuevoMenu } from '../interfaces/almuerzos';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AlmuerzosService {
-  API: string = 'http://localhost/cantinasystems/src/app/server/almuerzos.php';
+  API: string = environment.apiURL + '/server/almuerzos.php';
 
   constructor(private clientHttp: HttpClient) {}
 

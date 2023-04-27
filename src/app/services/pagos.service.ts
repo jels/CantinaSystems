@@ -3,13 +3,15 @@ import { NuevoPago, Pagos } from '../interfaces/pagos';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class PagosService {
-  API: string = 'http://localhost/cantinasystems/src/app/server/pagos.php';
+  API: string = environment.apiURL + '/server/pagos.php';
 
-  URL = 'http://localhost/cantinasystems/src/app/server/assets/';
+  URL = environment.apiURL + '/server/assets/';
 
   listPagos: Pagos[] = [
     {
