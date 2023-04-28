@@ -1,16 +1,18 @@
 <mat-toolbar color="primary">
     <span>CantinaSystems</span>
-    
+
     <span class="example-spacer"></span>
 
     <button mat-button *ngFor="let item of menu" [routerLink]="item.redirect">{{item.nombre}}</button>
 
     <span class="example-spacer"></span>
 
-    <button routerLink="/dashboard/cargar-datos" mat-icon-button class="example-icon favorite-icon">
+    <!--routerLink="/dashboard/cargar-datos"-->
+    <button mat-icon-button class="example-icon favorite-icon">
         <mat-icon>check_circle</mat-icon>
     </button>
-    <button (click)="exit()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <button (click)="exit()" mat-icon-button class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon">
         <mat-icon>logout</mat-icon>
     </button>
 
