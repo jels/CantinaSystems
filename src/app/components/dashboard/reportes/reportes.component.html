@@ -1,17 +1,13 @@
 <div class="container-2">
     <mat-toolbar>
-        <span class="example-spacer"></span>
-        <span>Lista de pedidos del mes Selecionado</span>
-        <span class="example-spacer"></span>
-    </mat-toolbar>
-    <mat-toolbar>
         <a class="pointer" style="color: #1f516f;" matTooltip="Mes Anterior" (click)="seleccionarMesParaMostrar(-1)">
             <mat-icon>
                 arrow_back_ios
             </mat-icon>
         </a>
         <span class="example-spacer"></span>
-        <span>{{mesNombre}}</span>
+        <span>Lista de pedidos del mes</span>
+        <span style="color:green; padding-left: 10px; ">{{mesNombre}}</span>
         <span class="example-spacer"></span>
         <a class="pointer" style="color: #1f516f;" matTooltip="Mes Siguiente" (click)="seleccionarMesParaMostrar(1)">
             <mat-icon>
@@ -21,11 +17,11 @@
     </mat-toolbar>
 </div>
 <div class="container-2">
-    <div class="mat-elevation-z8" style="padding-top: 10px;">
+    <div class="mat-elevation-z8">
         <div class="text-center">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Lista de almuerzos mensuales</h2>
+                    <!--style="padding-top: 10px;" <h2>Lista de almuerzos mensuales</h2>-->
                     <div *ngIf="listAlmuerzo.length > 0">
                         <mat-form-field>
                             <mat-label>Filtro</mat-label>
@@ -83,7 +79,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="mat-elevation-z8" *ngIf="listAlmuerzo == 0" style="text-align: center;">
+                    <div *ngIf="listAlmuerzo == 0" class="mat-elevation-z8"
+                        style="text-align: center; padding-top: 20px; padding-bottom: 20px;">
                         <h2>No hay almuerzos en el mes para mostrar en la tabla</h2>
                     </div>
                 </div>

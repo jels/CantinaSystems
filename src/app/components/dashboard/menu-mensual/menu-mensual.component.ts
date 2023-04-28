@@ -50,7 +50,6 @@ export class MenuMensualComponent implements OnInit {
   displayedColumns: string[] = [
     'dia_completo_almuerzo',
     'nombre_almuerzo',
-    'estado',
     'eliminar',
   ];
   dataSource: MatTableDataSource<any>;

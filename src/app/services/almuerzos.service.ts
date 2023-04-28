@@ -50,7 +50,7 @@ export class AlmuerzosService {
     );
   }
 
-  getAllAlmuersosUser(id: number, mes: number) {
+  getAllAlmuersosUser(id: number, mes: number, anho: number) {
     return this.clientHttp.get(
       this.API + '?almuerzosUserMensual=' + id + '&mes=' + mes
     );

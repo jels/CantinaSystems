@@ -50,6 +50,8 @@ export class ReportesComponent implements OnInit {
     'entidad',
   ];
 
+  mesSeleccionado!: number;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -127,6 +129,7 @@ export class ReportesComponent implements OnInit {
       this.mesNumero = this.mesNumero + mes;
       this.mesNombre = this.meses[this.mesNumero - 1];
     }
+    this.cargarCantAlmuersosMes(this.mesNumero, this.anho);
     console.log(this.mesNumero);
   }
 }

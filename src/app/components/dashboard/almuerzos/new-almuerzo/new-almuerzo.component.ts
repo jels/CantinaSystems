@@ -34,12 +34,12 @@ export class NewAlmuerzoComponent implements OnInit {
     };
     this._almuerzoService.newMenu(newAlm).subscribe((resp) => {
       console.log(resp);
+      this._snackBar.open('El almuerzo fue creado correctamente', '', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      });
+      this.router.navigate(['/dashboard/almuerzos']);
     });
-    this._snackBar.open('El almuerzo fue creado correctamente', '', {
-      duration: 5000,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-    });
-    //this.router.navigate(['/dashboard/almuerzos']);
   }
 }

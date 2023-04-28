@@ -37,20 +37,18 @@ const DIAS: string[] = [
 })
 export class AlmuerzosComponent implements AfterViewInit {
   idUser: number = Number(localStorage.getItem('idU'));
+  user_nombre = localStorage.getItem('nombreC');
   saldo: any;
   foods: any;
   listaAlmuerzosDiariosUsr: any;
   horaActual: any;
-
   existe: boolean = false;
-
   diaNombre: any;
   diaNumero: any;
   fechaCompleta: string = '';
   fechaExtendida: string = '';
   mes: any;
   anho: any;
-
   elegirPlato: boolean = false;
   diaCompleto: string = '';
   selected!: Date | null;
@@ -68,6 +66,9 @@ export class AlmuerzosComponent implements AfterViewInit {
   anhoActual = new Date().getFullYear();
 
   mesNombre: string = MESES[this.mesActual];
+
+  mesNumero!: number;
+  mesSeleccionado!: number;
 
   myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
@@ -102,8 +103,9 @@ export class AlmuerzosComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.mesNombre;
-    this.cargarAlmuerzosPorUsuario();
-    this.calcularSaldoActual(this.mesActual + 1, this.anhoActual);
+    this.mesSeleccionado = this.mesActual + 1;
+    this.cargarAlmuerzosPorUsuario(this.mesSeleccionado);
+    this.calcularSaldoActual(this.mesSeleccionado, this.anhoActual);
   }
 
   applyFilter(event: Event) {
@@ -186,40 +188,67 @@ export class AlmuerzosComponent implements AfterViewInit {
         verticalPosition: 'bottom',
       });
       this.almuerzosPorDiaForm.reset();
-      this.cargarAlmuerzosPorUsuario();
-      this.calcularSaldoActual(this.mesActual + 1, this.anhoActual);
+      this.cargarAlmuerzosPorUsuario(this.mesSeleccionado);
+      this.calcularSaldoActual(this.mesSeleccionado, this.anhoActual);
     }
   }
 
-  cargarAlmuerzosPorUsuario() {
-    console.log(this.mesActual);
+  cargarAlmuerzosPorUsuario(mesSeleccionado: number) {
+    console.log(this.mesSeleccionado, this.anhoActual);
     this._almuerzos
-      .getAllAlmuersosUser(this.idUser, this.mesActual + 1)
+      .getAllAlmuersosUser(this.idUser, mesSeleccionado, this.anhoActual)
       .subscribe((respuesta) => {
         this.listaAlmuerzosDiariosUsr = respuesta;
         this.dataSource = new MatTableDataSource(this.listaAlmuerzosDiariosUsr);
       });
   }
 
-  elimiarAlmuerzoDiario(id: number, dia: number) {
-    this.diaNumero = new Date().getDate();
-    //this.diaNumero = 24;
-    this.horaActual = new Date().getHours();
-    //this.horaActual = 8;
-    //console.log(dia < this.diaNumero);
-    //console.log(this.horaActual < 8);
-    //console.log(dia == this.diaNumero);
+  elimiarAlmuerzoDiario(id: number, dia: number, mes: number) {
+    console.log(mes);
+    console.log(this.mesActual + 1);
+    if (mes == this.mesActual + 1) {
+      this.diaNumero = new Date().getDate();
+      //this.diaNumero = 24;
+      this.horaActual = new Date().getHours();
+      //this.horaActual = 8;
+      //console.log(dia < this.diaNumero);
+      //console.log(this.horaActual < 8);
+      //console.log(dia == this.diaNumero);
 
-    if (dia < this.diaNumero) {
-      console.log('no se puede eliminar dia');
-      this._snackBar.open('El almuerzo ya no puede ser eliminado', '', {
-        duration: 5000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-      });
-    } else if (dia == this.diaNumero) {
-      if (this.horaActual < 8) {
-        console.log('se puede eliminar hora no supera las 8');
+      if (dia < this.diaNumero) {
+        console.log('no se puede eliminar dia');
+        this._snackBar.open('El almuerzo ya no puede ser eliminado', '', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      } else if (dia == this.diaNumero) {
+        if (this.horaActual < 8) {
+          console.log('se puede eliminar hora no supera las 8');
+          this._almuerzos.eliminarAlmuerzoUsr(id).subscribe((respuesta) => {
+            console.log(respuesta);
+          });
+          this._snackBar.open('El almuerzo fue eliminado correctamente', '', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          this.cargarAlmuerzosPorUsuario(this.mesSeleccionado);
+          this.calcularSaldoActual(this.mesSeleccionado, this.anhoActual);
+        } else {
+          console.log('no se puede eliminar porque hora supera las 8');
+          this._snackBar.open(
+            'El almuerzo ya no puede ser eliminado la hora ya supero las 8:00am',
+            '',
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            }
+          );
+        }
+      } else {
+        console.log('se puede eliminar');
         this._almuerzos.eliminarAlmuerzoUsr(id).subscribe((respuesta) => {
           console.log(respuesta);
         });
@@ -228,22 +257,17 @@ export class AlmuerzosComponent implements AfterViewInit {
           horizontalPosition: 'center',
           verticalPosition: 'bottom',
         });
-        this.cargarAlmuerzosPorUsuario();
-        this.calcularSaldoActual(this.mesActual + 1, this.anhoActual);
-      } else {
-        console.log('no se puede eliminar porque hora supera las 8');
-        this._snackBar.open(
-          'El almuerzo ya no puede ser eliminado la hora ya supero las 8:00am',
-          '',
-          {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          }
-        );
+        this.cargarAlmuerzosPorUsuario(this.mesSeleccionado);
+        this.calcularSaldoActual(this.mesSeleccionado, this.anhoActual);
       }
+    } else if (mes < this.mesActual + 1) {
+      this._snackBar.open('El almuerzo ya no puede ser eliminado', '', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      });
     } else {
-      console.log('se puede eliminar');
+      console.log('se puede eliminar dia aun no llega');
       this._almuerzos.eliminarAlmuerzoUsr(id).subscribe((respuesta) => {
         console.log(respuesta);
       });
@@ -252,8 +276,8 @@ export class AlmuerzosComponent implements AfterViewInit {
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
       });
-      this.cargarAlmuerzosPorUsuario();
-      this.calcularSaldoActual(this.mesActual + 1, this.anhoActual);
+      this.cargarAlmuerzosPorUsuario(this.mesSeleccionado);
+      this.calcularSaldoActual(this.mesSeleccionado, this.anhoActual);
     }
   }
 
@@ -264,5 +288,26 @@ export class AlmuerzosComponent implements AfterViewInit {
         this.saldo = Number(respuesta) * 16000;
         console.log(respuesta);
       });
+  }
+
+  seleccionarMesParaMostrar(mes: number) {
+    if (this.mesNumero == 12) {
+      this.mesSeleccionado = 1;
+      this.mesNombre = MESES[this.mesSeleccionado - 1];
+      this.cargarAlmuerzosPorUsuario(this.mesSeleccionado);
+      this.calcularSaldoActual(this.mesSeleccionado, this.anhoActual);
+
+      //} else if (this.mesNumero == 1) {
+      //  this.mesNumero = 12;
+      //  this.mesNombre = this.meses[this.mesNumero - 1];
+      //  this.cargarAlmuersosMes(this.mesNumero);
+    } else {
+      this.mesSeleccionado = this.mesSeleccionado + mes;
+      this.mesNombre = MESES[this.mesSeleccionado - 1];
+
+      this.cargarAlmuerzosPorUsuario(this.mesSeleccionado);
+      this.calcularSaldoActual(this.mesSeleccionado, this.anhoActual);
+    }
+    console.log(this.mesSeleccionado);
   }
 }
