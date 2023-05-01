@@ -117,7 +117,8 @@ if(isset($_GET["insertarAlmuerzosDiarios"])){
     $anhoAl=$data->anho;
     $opcionSopaAl=$data->opcionSopa;
     $opcionEnsaladaAl=$data->opcionEnsalada;
-    $sql = mysqli_query($conexionBD,"INSERT INTO almuerzoxdia(idalmuerzoxdia, id_users, id_almuerzo, fecha_completa_almuerzo, dia_almuerzo, mes_almuerzo, ano_almuerzo, fecha_almuerzo, estadoAlmuerzoEstudiante, estado_sopa, estado_ensalada, estado_entregado) VALUES (null,$idU,$idAl,'$fechaComple',$diaAl,$mesAl,$anhoAl,'$fechaAl',1,$opcionSopaAl,$opcionEnsaladaAl,0);");
+    $precio_almuerzo=$data->precio_almuerzo;
+    $sql = mysqli_query($conexionBD,"INSERT INTO almuerzoxdia(idalmuerzoxdia, id_users, id_almuerzo, fecha_completa_almuerzo, dia_almuerzo, mes_almuerzo, ano_almuerzo, fecha_almuerzo, estadoAlmuerzoEstudiante, estado_sopa, estado_ensalada, estado_entregado, precio_almuerzo) VALUES (null,$idU,$idAl,'$fechaComple',$diaAl,$mesAl,$anhoAl,'$fechaAl',1,$opcionSopaAl,$opcionEnsaladaAl,0,$precio_almuerzo);");
     echo json_encode(["success"=>1]);
     exit();
 }

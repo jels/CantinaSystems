@@ -38,6 +38,7 @@ const DIAS: string[] = [
 export class AlmuerzosComponent implements AfterViewInit {
   idUser: number = Number(localStorage.getItem('idU'));
   user_nombre = localStorage.getItem('nombreC');
+  precio_almuerzo: number = 16000;
   saldo: any;
   foods: any;
   listaAlmuerzosDiariosUsr: any;
@@ -167,6 +168,7 @@ export class AlmuerzosComponent implements AfterViewInit {
       anho: this.anhoActual,
       opcionSopa: opcionSopa ? 1 : 0,
       opcionEnsalada: opcionEnsalada ? 1 : 0,
+      precio_almuerzo: 16000,
     };
     console.log(almuerzosDiarios);
     if (this.existe) {
