@@ -13,7 +13,6 @@ import { UserComponent } from './user/user.component';
 import { HistorialComponent } from './historial/historial.component';
 import { NewPagoComponent } from './pagos/new-pago/new-pago.component';
 
-
 @NgModule({
   declarations: [
     ComedorComponent,
@@ -23,12 +22,8 @@ import { NewPagoComponent } from './pagos/new-pago/new-pago.component';
     AlmuerzosComponent,
     UserComponent,
     HistorialComponent,
-    NewPagoComponent
+    NewPagoComponent,
   ],
-  imports: [
-    CommonModule,
-    ComedorRoutingModule,
-    SharedModule
-  ]
+  imports: [CommonModule, ComedorRoutingModule, SharedModule],
 })
-export class ComedorModule { }
+export class ComedorModule {}
