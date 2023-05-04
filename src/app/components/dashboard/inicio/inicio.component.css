@@ -1,3 +1,9 @@
 .ancho {
     width: 90%;
 }
+
+.mat-mdc-form-field {
+    margin-top: 5px;
+    font-size: 14px;
+    width: 100%;
+}

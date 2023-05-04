@@ -1,46 +1,106 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { AlmuerzosService } from 'src/app/services/almuerzos.service';
+
+const MESES: string[] = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre',
+];
+const DIAS: string[] = [
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado',
+];
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
+  styleUrls: ['./inicio.component.css'],
 })
 export class InicioComponent implements OnInit {
-
   nombreUser = localStorage.getItem('nombreC');
-
-
+  listAlmuerzoHoy: any;
+  diaHoyCompleto: string = '';
   diasSeleccionados: any[] = [];
-  mesActual: string = "";
+  mesActual: string = '';
   mes = new Date().getMonth();
-  meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-  selected = 'None';
-  constructor(private router: Router) { }
+  diaHoy = new Date().getDay();
+  diaHoyLargo =
+    new Date().getDate() +
+    '/' +
+    (new Date().getMonth() + 1) +
+    '/' +
+    new Date().getFullYear();
 
-  ngOnInit() {
+  selected = 'None';
+
+  displayedColumns: string[] = [
+    'numero',
+    'nombreCompleto',
+    'entidad',
+    'nivel',
+    'almuerzo',
+    'estado',
+  ];
+  dataSource: MatTableDataSource<any>;
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(
+    private router: Router,
+    private _almuerzoService: AlmuerzosService
+  ) {
+    this.dataSource = new MatTableDataSource();
+  }
+
+  ngOnInit(): void {
     if (localStorage.getItem('rol') != 'admin') {
       this.router.navigate(['login']);
     }
-    this.mesActual = this.meses[this.mes];
-    console.log(this.mes + 1);
-    console.log(this.mesActual);
-
+    this.diaHoyCompleto =
+      DIAS[new Date().getDate()] +
+      ', ' +
+      this.diaHoy +
+      ' de ' +
+      MESES[this.mes] +
+      ' de ' +
+      new Date().getFullYear();
+    this.mesActual = MESES[this.mes];
+    this.cargarAlmuerzos();
   }
 
-
-
-  step = 0;
-  setStep(index: number) {
-    this.step = index;
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
-  nextStep() {
-    this.step++;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  prevStep() {
-    this.step--;
+  cargarAlmuerzos() {
+    this._almuerzoService
+      .listarAlmuerzosDiariosCocina(this.diaHoyLargo)
+      .subscribe((respuesta) => {
+        console.log(respuesta);
+        this.listAlmuerzoHoy = respuesta;
+        this.dataSource = new MatTableDataSource(this.listAlmuerzoHoy);
+      });
   }
-
 }
