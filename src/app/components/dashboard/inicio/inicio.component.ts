@@ -40,7 +40,8 @@ export class InicioComponent implements OnInit {
   diasSeleccionados: any[] = [];
   mesActual: string = '';
   mes = new Date().getMonth();
-  diaHoy = new Date().getDay();
+  diaHoy = new Date().getDate();
+  dia = new Date().getDay();
   diaHoyLargo =
     new Date().getDate() +
     '/' +
@@ -73,8 +74,10 @@ export class InicioComponent implements OnInit {
     if (localStorage.getItem('rol') != 'admin') {
       this.router.navigate(['login']);
     }
+    console.log(this.diaHoy);
+
     this.diaHoyCompleto =
-      DIAS[new Date().getDate()] +
+      DIAS[this.dia] +
       ', ' +
       this.diaHoy +
       ' de ' +
@@ -82,6 +85,9 @@ export class InicioComponent implements OnInit {
       ' de ' +
       new Date().getFullYear();
     this.mesActual = MESES[this.mes];
+    console.log(this.diaHoyCompleto);
+    console.log(this.diaHoyLargo);
+
     this.cargarAlmuerzos();
   }
 
