@@ -4,13 +4,27 @@
         <span>Bienvenido {{nombreUser}}</span>
         <span class="example-spacer"></span>
     </mat-toolbar>
+    <mat-toolbar>
+        <a class="pointer" style="color: green;" matTooltip="Mes Siguiente" (click)="selectDayParaMostrar(-1)">
+            <mat-icon>
+                arrow_back_ios
+            </mat-icon>
+        </a>
+        <span class="example-spacer"></span>
+        <span style="text-align: center; color: green;"><strong>{{diaHoyCompleto}}</strong></span>
+        <span class="example-spacer"></span>
+        <a class="pointer" style="color: green;" matTooltip="Mes Siguiente" (click)="selectDayParaMostrar(1)">
+            <mat-icon>
+                arrow_forward_ios
+            </mat-icon>
+        </a>
+    </mat-toolbar>
 </div>
 
 <div class="container-2">
     <div class="mat-elevation-z8">
         <div class="mat-elevation-z8" *ngIf="listAlmuerzoHoy.success != 0">
-            <h1 style="text-align: center; padding-top: 10px;">Lista de Almuerzos del: <span
-                    style="padding-left: 10px; color: green;">{{diaHoyCompleto}}</span> </h1>
+            <h1 style="text-align: center; padding-top: 10px;">Lista de Almuerzos</h1>
             <div class="text-center">
                 <div class="row">
                     <div class="col-sm-12">
@@ -84,7 +98,7 @@
         </div>
         <div class="mat-elevation-z8" *ngIf="listAlmuerzoHoy.success == 0"
             style="padding-top: 20px; padding-bottom: 10px; text-align: center; color: red;">
-            <h1>No hay almuerzos registrados para el dia de hoy <strong>{{diaHoyCompleto}}</strong></h1>
+            <h1>No hay almuerzos registrados para el dia de hoy</h1>
         </div>
     </div>
 </div>

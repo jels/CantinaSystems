@@ -109,4 +109,17 @@ export class InicioComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.listAlmuerzoHoy);
       });
   }
+
+  selectDayParaMostrar(dia: number) {
+    if (dia > 0) {
+      this.diaHoy = this.diaHoy + dia;
+      this.diaHoyLargo =
+        this.diaHoy + '/' + (this.mes + 1) + '/' + new Date().getFullYear();
+    } else {
+      this.diaHoy = this.diaHoy + dia;
+      this.diaHoyLargo =
+        this.diaHoy + '/' + (this.mes + 1) + '/' + new Date().getFullYear();
+    }
+    console.log(this.diaHoyLargo);
+  }
 }
