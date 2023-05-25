@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class PagosService {
   API: string = environment.apiURL + '/server/pagos.php';
 
-  URL = environment.apiURL + '/server/assets/';
+  URL = environment.apiURL + '/assets/';
 
   listPagos: Pagos[] = [
     {

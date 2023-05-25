@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AlmuerzosService {
-  API: string = environment.apiURL + '/server/almuerzos.php';
+  API: string = environment.apiURL + '/almuerzos.php';
 
   constructor(private clientHttp: HttpClient) {}
 

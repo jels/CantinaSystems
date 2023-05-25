@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class UsuarioService {
   idUserGlobal: number = 0;
 
-  API: string = environment.apiURL + '/server/users.php/';
+  API: string = environment.apiURL + '/users.php/';
 
   constructor(private clientHttp: HttpClient) {}
 

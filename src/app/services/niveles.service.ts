@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class NivelesService {
-  API: string = environment.apiURL + '/server/niveles.php';
+  API: string = environment.apiURL + '/niveles.php';
 
   constructor(private clientHttp: HttpClient) {}
 

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class EntidadesService {
-  API: string = environment.apiURL + '/server/entidades.php';
+  API: string = environment.apiURL + '/entidades.php';
 
   constructor(private clientHttp: HttpClient) {}
 
